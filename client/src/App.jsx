@@ -7,6 +7,8 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Login from "./pages/Login";
 import UserPanel from "./pages/UserPanel";
+import History from "./pages/History";
+import Statistics from "./pages/Statistics";
 
 function App() {
   const location = useLocation();
@@ -37,6 +39,18 @@ function App() {
             <Route path="/userpanel" element={
                 <PageWrapper routeKey="/userpanel">
                   <UserPanel />
+                </PageWrapper>
+              }
+            />
+            <Route path="/history" element={
+                <PageWrapper routeKey="/history">
+                  <History />
+                </PageWrapper>
+              }
+            />
+            <Route path="/statistics" element={
+                <PageWrapper routeKey="/statistics">
+                  <Statistics />
                 </PageWrapper>
               }
             />
