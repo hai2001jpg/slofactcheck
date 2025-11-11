@@ -1,11 +1,20 @@
-import { useState, useEffect } from "react";
 import { TypingAnimation } from "@/components/ui/typing-animation";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 const Sidebar = () => {
-    const [userName, setUserName] = useState("John Doe");
+    const { user, logout } = useAuth();
+    const userName = user?.displayName ?? "John Doe";
     // helper for getting initials
     const getInitials = (name) => name.split(' ').map(n => n[0]).join('');
+    const location = useLocation();
+    const handleLogout = async () => {
+        try {
+            await logout();
+        } catch (error) {
+            console.error("Failed to log out", error);
+        }
+    };
 
     return (
         <div className="bg-[#111111] flex flex-col items-center min-h-full w-1/8 py-8 gap-4">
@@ -30,7 +39,21 @@ const Sidebar = () => {
                     </span>
                 </div>
                 <div className="flex flex-col gap-4">
-                    <Link to="/userpanel" className="text-white font-[Montserrat] hover:text-blue-500 transition duration-300">
+                    <Link
+                        to="/"
+                        className={`text-white font-[Montserrat] hover:text-blue-500 hover:bg-gray-800 rounded lg:px-4 lg:py-2 p-2 transition duration-300 
+                        ${location.pathname === "/" ? "bg-gray-800" : ""}`}>
+                        <div className="flex flex-row items-center gap-4 justify-center lg:justify-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
+                                <path d="M8 .5 1 7h2v7h4V9h2v5h4V7h2z"/>
+                            </svg>
+                            <span className="hidden lg:inline">Home</span>
+                        </div>
+                    </Link>
+                    <Link
+                        to="/userpanel"
+                        className={`text-white font-[Montserrat] hover:text-blue-500 hover:bg-gray-800 rounded lg:px-4 lg:py-2 p-2 transition duration-300 
+                        ${location.pathname === "/userpanel" ? "bg-gray-800" : ""}`}>
                         <div className="flex flex-row items-center gap-4 justify-center lg:justify-start">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" className="bi bi-columns" viewBox="0 0 16 16">
                                 <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm8.5 0v8H15V2zm0 9v3H15v-3zm-1-9H1v3h6.5zM1 14h6.5V6H1z"/>
@@ -38,7 +61,10 @@ const Sidebar = () => {
                             <span className="hidden lg:inline">User Panel</span>
                         </div>
                     </Link>
-                    <Link to="/history" className="text-white font-[Montserrat] hover:text-blue-500 transition duration-300">
+                    <Link
+                        to="/history"
+                        className={`text-white font-[Montserrat] hover:text-blue-500 hover:bg-gray-800 rounded lg:px-4 lg:py-2 p-2 transition duration-300 
+                        ${location.pathname === "/history" ? "bg-gray-800" : ""}`}>
                         <div className="flex flex-row items-center gap-4 justify-center lg:justify-start">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" className="bi bi-clock-history" viewBox="0 0 16 16">
                                 <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z"/>
@@ -48,7 +74,10 @@ const Sidebar = () => {
                             <span className="hidden lg:inline">History</span>
                         </div>
                     </Link>
-                    <Link to="/statistics" className="text-white font-[Montserrat] hover:text-blue-500 transition duration-300">
+                    <Link
+                        to="/statistics"
+                        className={`text-white font-[Montserrat] hover:text-blue-500 hover:bg-gray-800 rounded lg:px-4 lg:py-2 p-2 transition duration-300 
+                        ${location.pathname === "/statistics" ? "bg-gray-800" : ""}`}>
                         <div className="flex flex-row items-center gap-4 justify-center lg:justify-start">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" className="bi bi-bar-chart" viewBox="0 0 16 16">
                                 <path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>
@@ -58,7 +87,10 @@ const Sidebar = () => {
                     </Link>
                 </div>
             </div>
-            <button className="flex flex-row items-center w-full self-start justify-center lg:justify-start pt-4 px-4 gap-4 text-red-500 hover:text-red-700 transition duration-300 cursor-pointer border-t border-[#333333]">
+            <button
+                className="flex flex-row items-center w-full self-start justify-center lg:justify-start pt-4 px-4 gap-4 text-red-500 hover:text-red-700 transition duration-300 cursor-pointer border-t border-[#333333]"
+                onClick={handleLogout}
+            >
                 <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" className="bi bi-box-arrow-right" viewBox="0 0 16 16">
                     <path fill="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
                     <path fill="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>

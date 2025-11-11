@@ -9,10 +9,11 @@ import Login from "./pages/Login";
 import UserPanel from "./pages/UserPanel";
 import History from "./pages/History";
 import Statistics from "./pages/Statistics";
+import ProtectedRoute from "./components/routing/ProtectedRoute";
 
 function App() {
   const location = useLocation();
-  const hideNav = location.pathname === "/login" || location.pathname === "/userpanel";
+  const hideNav = ["/login", "/userpanel", "/history", "/statistics"].includes(location.pathname);
 
   return (
     <div className="bg flex flex-col min-h-screen">
@@ -36,22 +37,34 @@ function App() {
             />
 
             {/* Protected routes */ }
-            <Route path="/userpanel" element={
-                <PageWrapper routeKey="/userpanel">
-                  <UserPanel />
-                </PageWrapper>
+            <Route
+              path="/userpanel"
+              element={
+                <ProtectedRoute>
+                  <PageWrapper routeKey="/userpanel">
+                    <UserPanel />
+                  </PageWrapper>
+                </ProtectedRoute>
               }
             />
-            <Route path="/history" element={
-                <PageWrapper routeKey="/history">
-                  <History />
-                </PageWrapper>
+            <Route
+              path="/history"
+              element={
+                <ProtectedRoute>
+                  <PageWrapper routeKey="/history">
+                    <History />
+                  </PageWrapper>
+                </ProtectedRoute>
               }
             />
-            <Route path="/statistics" element={
-                <PageWrapper routeKey="/statistics">
-                  <Statistics />
-                </PageWrapper>
+            <Route
+              path="/statistics"
+              element={
+                <ProtectedRoute>
+                  <PageWrapper routeKey="/statistics">
+                    <Statistics />
+                  </PageWrapper>
+                </ProtectedRoute>
               }
             />
           </Routes>

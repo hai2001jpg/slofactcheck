@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Sidebar from "@/components/layout/Sidebar";
+import { useAuth } from "@/hooks/useAuth";
 
 const UserPanel = () => {
-    const [userName, setUserName] = useState("John Doe");
+    const { user } = useAuth();
+    const userName = user?.displayName ?? "Guest";
     const [totalFactChecks, setTotalFactChecks] = useState(0);
     const [totalDisinformation, setTotalDisinformation] = useState(0);
     const [confidence, setConfidence] = useState(0);

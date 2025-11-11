@@ -1,6 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 const Login = () => {
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { loginWithGoogle, user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && user) {
+      navigate("/userpanel");
+    }
+  }, [loading, navigate, user]);
+
+  const handleGoogleAuth = async () => {
+    setError("");
+    try {
+      await loginWithGoogle();
+    } catch (err) {
+      setError(err?.message ?? "Unable to authenticate with Google.");
+    }
+  };
   return (
     <div className="bg h-screen flex justify-center items-center">
       <div className="py-10 px-12 bg-[#1B1B1B] flex rounded-lg flex-col items-center gap-6 shadow-lg font-[Montserrat] gradient-border">
@@ -17,8 +37,11 @@ const Login = () => {
         </div>
         <div className="w-full h-px bg-gray-700 mx-auto"></div>
         <div className="flex flex-col gap-4 items-center w-[90%]">
-          <button className="text-white py-3 px-6 cursor-pointer border border-white/40 rounded-md flex flex-row justify-center items-center 
-                       font-semibold w-full gap-2 hover:bg-white/10 transition duration-300">
+          <button
+            className="text-white py-3 px-6 cursor-pointer border border-white/40 rounded-md flex flex-row justify-center items-center font-semibold w-full gap-2 hover:bg-white/10 transition duration-300"
+            onClick={handleGoogleAuth}
+            disabled={loading}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 48 48">   
               <path
                 fill="#FFC107"
@@ -51,8 +74,11 @@ const Login = () => {
 
           <span className="text-white">or</span>
 
-          <button className="text-white py-3 px-6 cursor-pointer border border-white/40 rounded-md flex flex-row justify-center items-center 
-                       font-semibold w-full gap-2 hover:bg-white/10 transition duration-300">
+          <button
+            className="text-white py-3 px-6 cursor-pointer border border-white/40 rounded-md flex flex-row justify-center items-center font-semibold w-full gap-2 hover:bg-white/10 transition duration-300"
+            onClick={handleGoogleAuth}
+            disabled={loading}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 48 48">
               <path
                 fill="#FFC107"
@@ -88,7 +114,8 @@ const Login = () => {
             </svg>
             Signup with Google
           </button>
-        </div>
+  </div>
+  {error && <div className="text-red-500 mt-2 text-sm">{error}</div>}
       </div>
     </div>
   );

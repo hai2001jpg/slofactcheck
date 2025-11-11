@@ -1,9 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { TypingAnimation } from "@/components/ui/typing-animation"
+import { Link, useLocation } from "react-router-dom";
+import { TypingAnimation } from "@/components/ui/typing-animation";
+import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const [isRefreshing, setIsRefreshing] = useState(false);
+    const { user, logout, loading } = useAuth();
+    const isAuthenticated = Boolean(user);
+    const location = useLocation();
+    const isHome = location.pathname === "/";
+    const isBusy = loading || isLoggingOut;
 
     const scrollToSection = (id) => {
         const section = document.getElementById(id);
@@ -13,6 +21,25 @@ const Navbar = () => {
             window.scrollTo({ top: targetPosition, behavior: "smooth" });
         }
         setOpen(false);
+    };
+
+    const handleLogout = async () => {
+        try {
+            setIsLoggingOut(true);
+            await logout();
+            setOpen(false);
+            if (isHome) {
+                setIsRefreshing(true);
+                setTimeout(() => window.location.reload(), 350);
+                return;
+            }
+        } catch (error) {
+            console.error("Failed to log out", error);
+        } finally {
+            if (!isHome) {
+                setIsLoggingOut(false);
+            }
+        }
     };
 
     return (
@@ -32,10 +59,27 @@ const Navbar = () => {
                         <button onClick={() => scrollToSection("contact")} className="cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">Contact</button>
                     </div>
 
-                    <div className="flex gap-4 font-[Montserrat] text-md">
-                        <Link to="/login"><button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300 text-nowrap">Log In</button></Link>
-                        <Link to="/login"><button className="bg-blue-600 text-white px-4 py-2 rounded-md border border-blue-600 hover:border-white transition duration-300 text-nowrap">Sign Up</button></Link>
-                    </div>
+                    {isAuthenticated ? (
+                        <div className="flex gap-4 font-[Montserrat] text-md">
+                            <Link to="/userpanel">
+                                <button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300 text-nowrap">
+                                    User Panel
+                                </button>
+                            </Link>
+                            <button
+                                className="bg-red-600 text-white px-4 py-2 rounded-md border border-red-600 hover:border-white transition duration-300 text-nowrap disabled:opacity-50"
+                                onClick={handleLogout}
+                                disabled={isBusy}
+                            >
+                                {isBusy ? "Logging out..." : "Log Out"}
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="flex gap-4 font-[Montserrat] text-md">
+                            <Link to="/login"><button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300 text-nowrap">Log In</button></Link>
+                            <Link to="/login"><button className="bg-blue-600 text-white px-4 py-2 rounded-md border border-blue-600 hover:border-white transition duration-300 text-nowrap">Sign Up</button></Link>
+                        </div>
+                    )}
                 </div>
 
                 {/* hamburger menu */}
@@ -68,13 +112,37 @@ const Navbar = () => {
                             <button onClick={() => scrollToSection("home")} className="w-full text-white cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">Home</button>
                             <button onClick={() => scrollToSection("about")} className="w-full text-white cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">About SFC</button>
                             <button onClick={() => scrollToSection("contact")} className="w-full text-white cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">Contact</button>
-                            <div className="w-full flex gap-4 justify-center pt-2">
-                                <Link to="/login"><button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300">Log In</button></Link>
-                                <Link to="/login"><button className="bg-blue-600 text-white px-4 py-2 rounded-md border border-blue-600 hover:border-white transition duration-300">Sign Up</button></Link>
-                            </div>
+                            {isAuthenticated ? (
+                                <div className="w-full flex gap-4 justify-center pt-2">
+                                    <Link to="/userpanel" onClick={() => setOpen(false)}>
+                                        <button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300">
+                                            User Panel
+                                        </button>
+                                    </Link>
+                                    <button
+                                        className="bg-red-600 text-white px-4 py-2 rounded-md border border-red-600 hover:border-white transition duration-300 disabled:opacity-50"
+                                        onClick={handleLogout}
+                                        disabled={isBusy}
+                                    >
+                                        {isBusy ? "Logging out..." : "Log Out"}
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="w-full flex gap-4 justify-center pt-2">
+                                    <Link to="/login"><button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300">Log In</button></Link>
+                                    <Link to="/login"><button className="bg-blue-600 text-white px-4 py-2 rounded-md border border-blue-600 hover:border-white transition duration-300">Sign Up</button></Link>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
+            {isRefreshing && (
+                <div className="fixed top-16 inset-x-0 flex justify-center pointer-events-none">
+                    <span className="bg-black/60 text-white/80 text-sm px-4 py-2 rounded-full animate-pulse">
+                        Refreshing your session…
+                    </span>
+                </div>
+            )}
         </nav>
     )
 }
