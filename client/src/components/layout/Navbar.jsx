@@ -9,6 +9,9 @@ const Navbar = () => {
     const [isRefreshing, setIsRefreshing] = useState(false);
     const { user, logout, loading } = useAuth();
     const isAuthenticated = Boolean(user);
+    const initials = user?.displayName
+        ? user.displayName.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
+        : (user?.email?.[0] ?? "U").toUpperCase();
     const location = useLocation();
     const isHome = location.pathname === "/";
     const isBusy = loading || isLoggingOut;
@@ -60,12 +63,15 @@ const Navbar = () => {
                     </div>
 
                     {isAuthenticated ? (
-                        <div className="flex gap-4 font-[Montserrat] text-md">
+                        <div className="flex gap-4 items-center font-[Montserrat] text-md">
                             <Link to="/userpanel">
                                 <button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300 text-nowrap">
                                     User Panel
                                 </button>
                             </Link>
+                            <div className="rounded-full bg-white/10 border border-white/20 text-white h-10 w-10 flex items-center justify-center font-semibold uppercase">
+                                {initials}
+                            </div>
                             <button
                                 className="bg-red-600 text-white px-4 py-2 rounded-md border border-red-600 hover:border-white transition duration-300 text-nowrap disabled:opacity-50"
                                 onClick={handleLogout}
@@ -113,12 +119,15 @@ const Navbar = () => {
                             <button onClick={() => scrollToSection("about")} className="w-full text-white cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">About SFC</button>
                             <button onClick={() => scrollToSection("contact")} className="w-full text-white cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">Contact</button>
                             {isAuthenticated ? (
-                                <div className="w-full flex gap-4 justify-center pt-2">
+                                <div className="w-full flex gap-4 justify-center pt-2 items-center">
                                     <Link to="/userpanel" onClick={() => setOpen(false)}>
                                         <button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300">
                                             User Panel
                                         </button>
                                     </Link>
+                                    <div className="rounded-full bg-white/10 border border-white/20 text-white h-10 w-10 flex items-center justify-center font-semibold uppercase">
+                                        {initials}
+                                    </div>
                                     <button
                                         className="bg-red-600 text-white px-4 py-2 rounded-md border border-red-600 hover:border-white transition duration-300 disabled:opacity-50"
                                         onClick={handleLogout}
