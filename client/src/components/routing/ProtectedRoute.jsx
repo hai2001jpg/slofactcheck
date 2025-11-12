@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="bg flex items-center justify-center min-h-screen text-white">
+      <div className="bg flex items-center justify-center min-h-screen text-white text-2xl font-[Montserrat]">
         Checking credentials...
       </div>
     );

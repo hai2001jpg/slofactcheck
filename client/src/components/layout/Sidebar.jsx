@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 const Sidebar = () => {
     const { user, logout } = useAuth();
     const userName = user?.displayName ?? "John Doe";
+    const avatarUrl = user?.photoURL ?? "";
     // helper for getting initials
     const getInitials = (name) => name.split(' ').map(n => n[0]).join('');
     const location = useLocation();
@@ -26,10 +27,19 @@ const Sidebar = () => {
             </span>
             <div className="flex flex-col gap-8 w-full px-4 flex-grow">
                 <div className="flex flex-col items-center gap-2">
-                    <div className="rounded-full bg-[#1B1B1B] shadow-lg flex items-center justify-center p-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="white" className="bi bi-person " viewBox="0 0 16 16">
-                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                        </svg>
+                    <div className="rounded-full bg-[#1B1B1B] shadow-lg flex items-center justify-center p-0.5">
+                        {avatarUrl ? (
+                            <img
+                                src={avatarUrl}
+                                alt={`${userName}'s avatar`}
+                                className="h-12 w-12 rounded-full object-cover"
+                                referrerPolicy="no-referrer"
+                            />
+                        ) : (
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="white" className="bi bi-person " viewBox="0 0 16 16">
+                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                            </svg>
+                        )}
                     </div>
                     <span className="text-white font-[Montserrat] font-semibold hidden lg:block">
                         {userName}
@@ -44,8 +54,8 @@ const Sidebar = () => {
                         className={`text-white font-[Montserrat] hover:text-blue-500 hover:bg-gray-800 rounded lg:px-4 lg:py-2 p-2 transition duration-300 
                         ${location.pathname === "/" ? "bg-gray-800" : ""}`}>
                         <div className="flex flex-row items-center gap-4 justify-center lg:justify-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
-                                <path d="M8 .5 1 7h2v7h4V9h2v5h4V7h2z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
                             </svg>
                             <span className="hidden lg:inline">Home</span>
                         </div>

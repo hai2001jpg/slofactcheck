@@ -12,6 +12,7 @@ const Navbar = () => {
     const initials = user?.displayName
         ? user.displayName.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
         : (user?.email?.[0] ?? "U").toUpperCase();
+    const avatarUrl = user?.photoURL ?? "";
     const location = useLocation();
     const isHome = location.pathname === "/";
     const isBusy = loading || isLoggingOut;
@@ -55,7 +56,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Desktop menu */}
-                <div className="hidden lg:flex items-center gap-8">
+                <div className="hidden lg:flex items-center gap-12">
                     <div className="flex gap-12 text-md text-white font-[Montserrat] font-[500]">
                         <button onClick={() => scrollToSection("home")} className="cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">Home</button>
                         <button onClick={() => scrollToSection("about")} className="cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300 text-nowrap">About SFC</button>
@@ -69,8 +70,17 @@ const Navbar = () => {
                                     User Panel
                                 </button>
                             </Link>
-                            <div className="rounded-full bg-white/10 border border-white/20 text-white h-10 w-10 flex items-center justify-center font-semibold uppercase">
-                                {initials}
+                            <div className="rounded-full bg-white/10 border border-white/20 text-white h-10 w-10 flex items-center justify-center font-semibold uppercase overflow-hidden">
+                                {avatarUrl ? (
+                                    <img
+                                        src={avatarUrl}
+                                        alt={`${user?.displayName ?? "User"} avatar`}
+                                        className="h-full w-full object-cover"
+                                        referrerPolicy="no-referrer"
+                                    />
+                                ) : (
+                                    initials
+                                )}
                             </div>
                             <button
                                 className="bg-red-600 text-white px-4 py-2 rounded-md border border-red-600 hover:border-white transition duration-300 text-nowrap disabled:opacity-50"
@@ -125,8 +135,17 @@ const Navbar = () => {
                                             User Panel
                                         </button>
                                     </Link>
-                                    <div className="rounded-full bg-white/10 border border-white/20 text-white h-10 w-10 flex items-center justify-center font-semibold uppercase">
-                                        {initials}
+                                    <div className="rounded-full bg-white/10 border border-white/20 text-white h-10 w-10 flex items-center justify-center font-semibold uppercase overflow-hidden">
+                                        {avatarUrl ? (
+                                            <img
+                                                src={avatarUrl}
+                                                alt={`${user?.displayName ?? "User"} avatar`}
+                                                className="h-full w-full object-cover"
+                                                referrerPolicy="no-referrer"
+                                            />
+                                        ) : (
+                                            initials
+                                        )}
                                     </div>
                                     <button
                                         className="bg-red-600 text-white px-4 py-2 rounded-md border border-red-600 hover:border-white transition duration-300 disabled:opacity-50"

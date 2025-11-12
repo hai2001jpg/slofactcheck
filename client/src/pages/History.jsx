@@ -19,14 +19,13 @@ const History = () => {
                 </div>
                 <div className="flex flex-col items-center w-full px-4">
                     <button
-                        className="w-full max-w-xl flex flex-row items-center justify-center gap-4 py-3 sm:py-4 px-6 sm:px-10 
+                        className="flex flex-row items-center justify-center gap-4 py-3 sm:py-4 px-6 sm:px-10 
                         lg:px-12 bg-[#3b3b3b] rounded-full hover:bg-[#3b3b3b]/80 transition duration-200 text-base sm:text-lg"
-                        onClick={handleStartNewAnalysis}
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="white" className="bi bi-plus-lg" viewBox="0 0 16 16">
-                            <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-                        </svg>
-                        <span className="text-gray-300 font-[Montserrat] text-nowrap">Start new analysis</span>
+                        onClick={handleStartNewAnalysis}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="white" className="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                            </svg>
+                            <span className="text-gray-300 font-[Montserrat] text-nowrap">Start new analysis</span>
                     </button>
                 </div>
             </div>

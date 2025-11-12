@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Sidebar from "@/components/layout/Sidebar";
 import { useAuth } from "@/hooks/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UserPanel = () => {
     const { user } = useAuth();
@@ -8,6 +9,16 @@ const UserPanel = () => {
     const [totalFactChecks, setTotalFactChecks] = useState(0);
     const [totalDisinformation, setTotalDisinformation] = useState(0);
     const [confidence, setConfidence] = useState(0);
+    const analysisTextareaRef = useRef(null);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (location.state?.focusAnalysis && analysisTextareaRef.current) {
+            analysisTextareaRef.current.focus();
+            navigate(location.pathname, { replace: true });
+        }
+    }, [location.pathname, location.state, navigate]);
 
     return(
         <div className="flex flex-row justify-center min-h-screen overflow-hidden">
@@ -64,7 +75,13 @@ const UserPanel = () => {
                     <h2 className="text-gray-400 font-[Montserrat] text-lg lg:text-xl font-semibold self-start">
                         Disinformation Analysis
                     </h2>   
-                    <textarea type="text" placeholder="Enter text to analyze..." rows="6" className="w-full p-4 rounded-md bg-[#1B1B1B] text-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition resize-none"/>
+                    <textarea
+                        ref={analysisTextareaRef}
+                        type="text"
+                        placeholder="Enter text to analyze..."
+                        rows="6"
+                        className="w-full p-4 rounded-md bg-[#1B1B1B] text-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition resize-none"
+                    />
                     <button className="flex flex-row justify-between items-center bg-blue-600 py-3 px-6 rounded-full gap-2 hover:bg-blue-700 transition duration-300">
                         <span className="text-white font-[Montserrat]">
                             Start analysis
