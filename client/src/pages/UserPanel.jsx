@@ -9,6 +9,7 @@ const UserPanel = () => {
     const [totalFactChecks, setTotalFactChecks] = useState(0);
     const [totalDisinformation, setTotalDisinformation] = useState(0);
     const [confidence, setConfidence] = useState(0);
+    const [selectedModel, setSelectedModel] = useState("mBERT");
     const analysisTextareaRef = useRef(null);
     const location = useLocation();
     const navigate = useNavigate();
@@ -75,6 +76,22 @@ const UserPanel = () => {
                     <h2 className="text-gray-400 font-[Montserrat] text-lg lg:text-xl font-semibold self-start">
                         Disinformation Analysis
                     </h2>   
+                    <div className="w-full flex flex-row gap-3 items-center justify-center">
+                        <label className="text-gray-300 text-sm lg:text-base font-[Montserrat]" htmlFor="model-select">
+                            Select model
+                        </label>
+                        <select
+                            id="model-select"
+                            value={selectedModel}
+                            onChange={(event) => setSelectedModel(event.target.value)}
+                            className="flex bg-[#1B1B1B] text-white border border-gray-700 rounded-md px-4 py-2 focus:outline-none 
+                            focus:ring-2 focus:ring-blue-600 font-[Montserrat]">
+                            <option value="mBERT">mBERT</option>
+                            <option value="XLM-RoBERTa">XLM-RoBERTa</option>
+                            <option value="mT-5">mT-5</option>
+                            <option value="mDeBERTa-v3">mDeBERTa-v3</option>
+                        </select>
+                    </div>
                     <textarea
                         ref={analysisTextareaRef}
                         type="text"

@@ -17,7 +17,7 @@ const History = () => {
                         Your history
                     </h1>
                 </div>
-                <div className="flex flex-col items-center w-full px-4">
+                <div className="flex flex-col items-center w-full gap-8">
                     <button
                         className="flex flex-row items-center justify-center gap-4 py-3 sm:py-4 px-6 sm:px-10 
                         lg:px-12 bg-[#3b3b3b] rounded-full hover:bg-[#3b3b3b]/80 transition duration-200 text-base sm:text-lg"
