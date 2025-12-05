@@ -10,6 +10,10 @@ const UserPanel = () => {
     const [totalDisinformation, setTotalDisinformation] = useState(0);
     const [confidence, setConfidence] = useState(0);
     const [selectedModel, setSelectedModel] = useState("mBERT");
+    const [analysisInput, setAnalysisInput] = useState("");
+    const [analysisResult, setAnalysisResult] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
     const analysisTextareaRef = useRef(null);
     const location = useLocation();
     const navigate = useNavigate();
@@ -20,6 +24,40 @@ const UserPanel = () => {
             navigate(location.pathname, { replace: true });
         }
     }, [location.pathname, location.state, navigate]);
+
+    // Helper to map UI model names to backend model names
+    const modelMap = {
+        "mBERT": "mbert",
+        "XLM-RoBERTa": "xlm_roberta",
+        "mT-5": "mt5",
+        "mDeBERTa-v3": "mdeberta_v3"
+    };
+
+    const handleStartAnalysis = async () => {
+        setLoading(true);
+        setError("");
+        setAnalysisResult(null);
+        try {
+            const response = await fetch("http://localhost:5000/analysis", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    userId: user?.uid || "anonymous",
+                    input: analysisInput,
+                    model: modelMap[selectedModel],
+                    // topic: "other" // You can add a topic selector if needed
+                })
+            });
+            if (!response.ok) throw new Error("Server error");
+            const data = await response.json();
+            setAnalysisResult(data.result);
+            setConfidence(data.confidence * 100);
+        } catch (err) {
+            setError("Failed to analyze: " + err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return(
         <div className="flex flex-row justify-center min-h-screen overflow-hidden">
@@ -69,7 +107,7 @@ const UserPanel = () => {
                             <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
                             </svg>
                         </div>
-                        <span className="text-white text-lg lg:text-xl font-black">{confidence}</span>
+                        <span className="text-white text-lg lg:text-xl font-black">0</span>
                     </div>
                 </div>
                 <div className="bg-[#111111] flex flex-col items-center lg:w-[calc(100%-8rem)] w-[calc(100%-2rem)] p-4 lg:p-6 gap-4 rounded-lg shadow-lg">
@@ -97,16 +135,29 @@ const UserPanel = () => {
                         type="text"
                         placeholder="Enter text to analyze..."
                         rows="6"
+                        value={analysisInput}
+                        onChange={e => setAnalysisInput(e.target.value)}
                         className="w-full p-4 rounded-md bg-[#1B1B1B] text-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition resize-none"
                     />
-                    <button className="flex flex-row justify-between items-center bg-blue-600 py-3 px-6 rounded-full gap-2 hover:bg-blue-700 transition duration-300">
+                    <button
+                        className="flex flex-row justify-between items-center bg-blue-600 py-3 px-6 rounded-full gap-2 hover:bg-blue-700 transition duration-300"
+                        onClick={handleStartAnalysis}
+                        disabled={loading || !analysisInput.trim()}
+                    >
                         <span className="text-white font-[Montserrat]">
-                            Start analysis
+                            {loading ? "Analyzing..." : "Start analysis"}
                         </span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="white" className="bi bi-search" viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                         </svg>
                     </button>
+                    {error && <div className="text-red-500 mt-2 text-sm">{error}</div>}
+                    {analysisResult !== null && (
+                        <div className="text-white mt-2 text-base">
+                            <span>Result: <b>{String(analysisResult)}</b></span><br />
+                            <span>Confidence: <b>{confidence}</b></span>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
