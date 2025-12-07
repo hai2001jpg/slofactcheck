@@ -2,9 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import firebase_admin
 from firebase_admin import credentials, firestore
-
 from predict import load_model, predict_text
-
 
 # model caching
 model_cache = {}
@@ -21,7 +19,6 @@ db = firestore.client()
 app = Flask(__name__)
 CORS(app) 
 
-
 # endpoint for posting analysis
 @app.route('/analysis', methods=['POST'])
 def analysis_route():
@@ -32,7 +29,6 @@ def analysis_route():
     topic = data.get('topic')
     # Get or load model
     tokenizer, model, model_type = get_model(model_name)
-    # Call your predict function
     result, confidence = predict_text(input_text, tokenizer, model, model_type)
     doc = {
         'userId': user_id,

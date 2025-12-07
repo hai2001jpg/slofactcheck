@@ -9,7 +9,7 @@ const History = () => {
     const [analyses, setAnalyses] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    // Map backend model names to display names
+    // Mapping backend model names to display names
     const modelDisplayMap = {
         "mbert": "mBERT",
         "xlm_roberta": "XLM-RoBERTa",
@@ -59,18 +59,20 @@ const History = () => {
                 {error && <div className="text-red-500 text-2xl font-[Montserrat] font-semibold">{error}</div>}
                 {analyses.length === 0 && !loading && <div className="text-gray-400 text-2xl font-[Montserrat] font-semibold">No analysis found.</div>}
                     <div className="flex flex-col w-3/5 gap-4 mt-8 font-[Montserrat]">
-                        {/* Header Row */}
-                        <div className="grid grid-cols-[minmax(0,1fr)_100px_100px_120px] gap-4 px-2 text-gray-400 text-sm">
-                            <div>Input text</div>
-                            <div className="text-center">Result</div>
-                            <div className="text-center">Confidence</div>
-                            <div className="text-center">Model</div>
-                        </div>
+                        {/* Header Row*/}
+                        {analyses.length > 0 && (
+                            <div className="grid grid-cols-[minmax(0,1fr)_100px_100px_120px] gap-4 px-2 text-gray-400 text-sm">
+                                <div>Input</div>
+                                <div className="text-center">Result</div>
+                                <div className="text-center">Confidence</div>
+                                <div className="text-center">Model</div>
+                            </div>
+                        )}
                         {analyses.map(a => (
                             <div key={a.id} className="bg-[#222] rounded-lg p-4 grid grid-cols-[minmax(0,1fr)_100px_100px_120px] gap-4 items-center text-white shadow">
                                 <div className="truncate max-w-full" title={a.input}>{a.input}</div>
-                                <div className="text-center font-bold">{a.result}</div>
-                                <div className="text-center font-bold">{a.confidence * 100}%</div>
+                                    <div className={`text-center font-bold ${String(a.result) === 'false' ? 'text-red-500' : 'text-blue-500'}`}>{a.result}</div>
+                                    <div className="text-center font-bold">{(Math.round(Number(a.confidence) * 10000) / 100).toFixed(2)}%</div>
                                 <div className="text-center font-bold">{modelDisplayMap[a.model] || a.model}</div>
                             </div>
                         ))}

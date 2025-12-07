@@ -12,6 +12,7 @@ const UserPanel = () => {
     const [selectedModel, setSelectedModel] = useState("mBERT");
     const [analysisInput, setAnalysisInput] = useState("");
     const [analysisResult, setAnalysisResult] = useState(null);
+    const [lastAnalysis, setLastAnalysis] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const analysisTextareaRef = useRef(null);
@@ -45,11 +46,17 @@ const UserPanel = () => {
                     userId: user?.uid || "anonymous",
                     input: analysisInput,
                     model: modelMap[selectedModel],
-                    // topic: "other" // You can add a topic selector if needed
+                    // topic: "other" 
                 })
             });
             if (!response.ok) throw new Error("Server error");
             const data = await response.json();
+            setLastAnalysis({
+                input: analysisInput,
+                result: data.result,
+                confidence: Math.round(data.confidence * 10000) / 100 // 2 decimal points
+            });
+            setAnalysisInput("");
             setAnalysisResult(data.result);
             setConfidence(data.confidence * 100);
         } catch (err) {
@@ -112,7 +119,7 @@ const UserPanel = () => {
                 </div>
                 <div className="bg-[#111111] flex flex-col items-center lg:w-[calc(100%-8rem)] w-[calc(100%-2rem)] p-4 lg:p-6 gap-4 rounded-lg shadow-lg">
                     <h2 className="text-gray-400 font-[Montserrat] text-lg lg:text-xl font-semibold self-start">
-                        Disinformation Analysis
+                        Misinformation detection
                     </h2>   
                     <div className="w-full flex flex-row gap-3 items-center justify-center">
                         <label className="text-gray-300 text-sm lg:text-base font-[Montserrat]" htmlFor="model-select">
@@ -152,11 +159,19 @@ const UserPanel = () => {
                         </svg>
                     </button>
                     {error && <div className="text-red-500 mt-2 text-sm">{error}</div>}
-                    {analysisResult !== null && (
-                        <div className="text-white mt-2 text-base">
-                            <span>Result: <b>{String(analysisResult)}</b></span><br />
-                            <span>Confidence: <b>{confidence}</b></span>
-                        </div>
+                    {lastAnalysis && (
+                        <div className="text-white mt-2 text-base border border-gray-700 rounded p-3 font-[Montserrat] flex flex-col gap-2">
+                            <div>{lastAnalysis.input}</div>
+                            <div className="flex flex-row gap-4 justify-evenly">
+                                <div className="flex flex-row gap-2">
+                                    <span className="font-semibold">Result:</span> 
+                                    <b className={String(lastAnalysis.result) === 'false' ? 'text-red-500' : 'text-blue-500'}>{String(lastAnalysis.result)}</b>
+                                </div>
+                                <div className="flex flex-row gap-2">
+                                    <span className="font-semibold">Confidence:</span>
+                                    <b>{lastAnalysis.confidence}%</b></div>
+                                </div>
+                            </div>
                     )}
                 </div>
             </div>
