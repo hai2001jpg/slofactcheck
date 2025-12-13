@@ -4,10 +4,12 @@ import { useAuth } from "@/hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const UserPanel = () => {
+    const [analyses, setAnalyses] = useState([]);
     const { user } = useAuth();
     const userName = user?.displayName ?? "Guest";
     const [totalFactChecks, setTotalFactChecks] = useState(0);
     const [totalDisinformation, setTotalDisinformation] = useState(0);
+    const [avgConfidence, setAvgConfidence] = useState(0);
     const [confidence, setConfidence] = useState(0);
     const [selectedModel, setSelectedModel] = useState("mBERT");
     const [analysisInput, setAnalysisInput] = useState("");
@@ -19,12 +21,38 @@ const UserPanel = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
+
     useEffect(() => {
         if (location.state?.focusAnalysis && analysisTextareaRef.current) {
             analysisTextareaRef.current.focus();
             navigate(location.pathname, { replace: true });
         }
     }, [location.pathname, location.state, navigate]);
+
+    useEffect(() => {
+        if (!user?.uid) return;
+        const fetchAnalyses = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/analysis?userId=${user.uid}`);
+                if (!response.ok) throw new Error("Failed to fetch analyses");
+                const data = await response.json();
+                setAnalyses(data.analyses || []);
+                setTotalFactChecks(data.analyses.length);
+                const disinfoCount = data.analyses.filter(a => String(a.result) === "false").length;
+                setTotalDisinformation(disinfoCount);
+                const avgConf = data.analyses.length > 0 ?
+                    (data.analyses.reduce((sum, a) => sum + (Number(a.confidence) * 100), 0) / data.analyses.length).toFixed(2)
+                    : 0;
+                setAvgConfidence(avgConf);
+            } catch (err) {
+                setAnalyses([]);
+                setTotalFactChecks(0);
+                setTotalDisinformation(0);
+                setAvgConfidence(0);
+            }
+        };
+        fetchAnalyses();
+    }, [user?.uid]);
 
     // Helper to map UI model names to backend model names
     const modelMap = {
@@ -105,7 +133,7 @@ const UserPanel = () => {
                     <div className="flex flex-col gap-4 bg-[#111111] p-4 lg:p-6 rounded-lg shadow-lg w-full lg:w-1/3">
                         <div className="flex flex-row justify-between items-center">
                             <h2 className="text-gray-400 font-[Montserrat] font-semibold text-base lg:text-lg">
-                                Confidence Score
+                                Average Confidence Score
                             </h2>
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="green" className="bi bi-bullseye" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
@@ -114,12 +142,12 @@ const UserPanel = () => {
                             <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
                             </svg>
                         </div>
-                        <span className="text-white text-lg lg:text-xl font-black">0</span>
+                        <span className="text-white text-lg lg:text-xl font-black">{avgConfidence}</span>
                     </div>
                 </div>
                 <div className="bg-[#111111] flex flex-col items-center lg:w-[calc(100%-8rem)] w-[calc(100%-2rem)] p-4 lg:p-6 gap-4 rounded-lg shadow-lg">
                     <h2 className="text-gray-400 font-[Montserrat] text-lg lg:text-xl font-semibold self-start">
-                        Misinformation detection
+                        Disinformation detection
                     </h2>   
                     <div className="w-full flex flex-row gap-3 items-center justify-center">
                         <label className="text-gray-300 text-sm lg:text-base font-[Montserrat]" htmlFor="model-select">

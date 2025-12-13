@@ -2,14 +2,13 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import firebase_admin
 from firebase_admin import credentials, firestore
-from predict import load_model, predict_text
+from gradio_client import Client
+import os
+from dotenv import load_dotenv
 
-# model caching
-model_cache = {}
-def get_model(model_name="mbert"):
-    if model_name not in model_cache:
-        model_cache[model_name] = load_model(model_name)
-    return model_cache[model_name]
+load_dotenv()
+GRADIO_API_URL = os.getenv("GRADIO_API_URL")
+gr_client = Client(GRADIO_API_URL)
 
 # Innit Firebase
 cred = credentials.Certificate("slofactcheck-firebase-adminsdk.json")
@@ -19,7 +18,6 @@ db = firestore.client()
 app = Flask(__name__)
 CORS(app) 
 
-# endpoint for posting analysis
 @app.route('/analysis', methods=['POST'])
 def analysis_route():
     data = request.json
@@ -27,9 +25,15 @@ def analysis_route():
     input_text = data.get('input')
     model_name = data.get('model', 'mbert')
     topic = data.get('topic')
-    # Get or load model
-    tokenizer, model, model_type = get_model(model_name)
-    result, confidence = predict_text(input_text, tokenizer, model, model_type)
+    # Call Gradio API for prediction
+    try:
+        result, confidence = gr_client.predict(
+            model_name=model_name,
+            text=input_text,
+            api_name="/predict"
+        )
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
     doc = {
         'userId': user_id,
         'input': input_text,
