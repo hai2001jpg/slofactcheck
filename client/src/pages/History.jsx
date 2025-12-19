@@ -2,6 +2,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
+import AnalysisModal from "@/components/ui/AnalysisModal";
 
 const History = () => {
     const navigate = useNavigate();
@@ -9,13 +10,13 @@ const History = () => {
     const [analyses, setAnalyses] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [modalAnalysis, setModalAnalysis] = useState(null);
     // Mapping backend model names to display names
     const modelDisplayMap = {
         "mbert": "mBERT",
         "xlm_roberta": "XLM-RoBERTa",
         "mt5": "mT-5",
         "mdeberta_v3": "mDeBERTa-v3",
-
     };
 
     useEffect(() => {
@@ -47,7 +48,7 @@ const History = () => {
                 <div className="flex flex-col items-center w-full gap-8">
                     <button
                         className="flex flex-row items-center justify-center gap-4 py-3 sm:py-4 px-6 sm:px-10 
-                        lg:px-12 bg-[#3b3b3b] rounded-full hover:bg-[#3b3b3b]/80 transition duration-200 text-base sm:text-lg"
+                        lg:px-12 bg-[#3b3b3b] rounded-full hover:bg-[#3b3b3b]/80 transition duration-200 text-base sm:text-lg cursor-pointer"
                         onClick={handleStartNewAnalysis}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="white" className="bi bi-plus-lg" viewBox="0 0 16 16">
                                 <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
@@ -69,13 +70,17 @@ const History = () => {
                             </div>
                         )}
                         {analyses.map(a => (
-                            <div key={a.id} className="bg-[#222] rounded-lg p-4 grid grid-cols-[minmax(0,1fr)_100px_100px_120px] gap-4 items-center text-white shadow">
+                            <div
+                                key={a.id}
+                                className="bg-[#222] rounded-lg p-4 grid grid-cols-[minmax(0,1fr)_100px_100px_120px] gap-4 items-center text-white shadow cursor-pointer hover:bg-[#333]"
+                                onClick={() => setModalAnalysis(a)}>
                                 <div className="truncate max-w-full" title={a.input}>{a.input}</div>
-                                    <div className={`text-center font-bold ${String(a.result) === 'false' ? 'text-red-500' : 'text-blue-500'}`}>{a.result}</div>
-                                    <div className="text-center font-bold">{(Math.round(Number(a.confidence) * 10000) / 100).toFixed(2)}%</div>
+                                <div className={`text-center font-bold ${String(a.result) === 'false' ? 'text-red-500' : 'text-blue-500'}`}>{a.result}</div>
+                                <div className="text-center font-bold">{(Math.round(Number(a.confidence) * 10000) / 100).toFixed(2)}%</div>
                                 <div className="text-center font-bold">{modelDisplayMap[a.model] || a.model}</div>
                             </div>
                         ))}
+                        <AnalysisModal analysis={modalAnalysis} onClose={() => setModalAnalysis(null)} />
                     </div>
             </div>
         </div>

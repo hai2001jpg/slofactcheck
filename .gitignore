@@ -2,6 +2,8 @@
 server/slofactcheck-firebase-adminsdk.json
 client/src/lib/firebase.js
 
+**/.env
+
 # Logs
 logs
 *.log
