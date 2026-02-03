@@ -1,19 +1,25 @@
 import { useEffect, useRef, useState } from "react";
+import { useFetchAnalyses } from "@/hooks/useFetchAnalyses";
 import Sidebar from "@/components/layout/Sidebar";
 import { useAuth } from "@/hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const UserPanel = () => {
-    const [analyses, setAnalyses] = useState([]);
+
     const { user } = useAuth();
     const userName = user?.displayName ?? "Guest";
-    const [totalFactChecks, setTotalFactChecks] = useState(0);
-    const [totalDisinformation, setTotalDisinformation] = useState(0);
-    const [avgConfidence, setAvgConfidence] = useState(0);
-    const [confidence, setConfidence] = useState(0);
+    const {
+        analyses,
+        totalFactChecks,
+        totalDisinformation,
+        avgConfidence,
+        loading: analysesLoading,
+        error: analysesError
+    } = useFetchAnalyses(user);
+
     const [selectedModel, setSelectedModel] = useState("mBERT");
     const [analysisInput, setAnalysisInput] = useState("");
-    const [analysisResult, setAnalysisResult] = useState(null);
+
     const [lastAnalysis, setLastAnalysis] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -29,32 +35,6 @@ const UserPanel = () => {
         }
     }, [location.pathname, location.state, navigate]);
 
-    useEffect(() => {
-        if (!user?.uid) return;
-        const fetchAnalyses = async () => {
-            try {
-                const response = await fetch(`http://localhost:5000/analysis?userId=${user.uid}`);
-                if (!response.ok) throw new Error("Failed to fetch analyses");
-                const data = await response.json();
-                setAnalyses(data.analyses || []);
-                setTotalFactChecks(data.analyses.length);
-                const disinfoCount = data.analyses.filter(a => String(a.result) === "false").length;
-                setTotalDisinformation(disinfoCount);
-                const avgConf = data.analyses.length > 0 ?
-                    (data.analyses.reduce((sum, a) => sum + (Number(a.confidence) * 100), 0) / data.analyses.length).toFixed(2)
-                    : 0;
-                setAvgConfidence(avgConf);
-            } catch (err) {
-                setAnalyses([]);
-                setTotalFactChecks(0);
-                setTotalDisinformation(0);
-                setAvgConfidence(0);
-            }
-        };
-        fetchAnalyses();
-    }, [user?.uid]);
-
-    // Helper to map UI model names to backend model names
     const modelMap = {
         "mBERT": "mbert",
         "XLM-RoBERTa": "xlm_roberta",
@@ -65,7 +45,7 @@ const UserPanel = () => {
     const handleStartAnalysis = async () => {
         setLoading(true);
         setError("");
-        setAnalysisResult(null);
+        setLastAnalysis(null);
         try {
             const response = await fetch("http://localhost:5000/analysis", {
                 method: "POST",
@@ -85,8 +65,6 @@ const UserPanel = () => {
                 confidence: Math.round(data.confidence * 10000) / 100 // 2 decimal points
             });
             setAnalysisInput("");
-            setAnalysisResult(data.result);
-            setConfidence(data.confidence * 100);
         } catch (err) {
             setError("Failed to analyze: " + err.message);
         } finally {
@@ -133,7 +111,7 @@ const UserPanel = () => {
                     <div className="flex flex-col gap-4 bg-[#111111] p-4 lg:p-6 rounded-lg shadow-lg w-full lg:w-1/3">
                         <div className="flex flex-row justify-between items-center">
                             <h2 className="text-gray-400 font-[Montserrat] font-semibold text-base lg:text-lg">
-                                Average Confidence Score
+                                Average Confidence
                             </h2>
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="green" className="bi bi-bullseye" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
@@ -196,7 +174,7 @@ const UserPanel = () => {
                                     <b className={String(lastAnalysis.result) === 'false' ? 'text-red-500' : 'text-blue-500'}>{String(lastAnalysis.result)}</b>
                                 </div>
                                 <div className="flex flex-row gap-2">
-                                    <span className="font-semibold">Confidence:</span>
+                                    <span className="font-semibold text-gray-400">Confidence:</span>
                                     <b>{lastAnalysis.confidence}%</b></div>
                                 </div>
                             </div>

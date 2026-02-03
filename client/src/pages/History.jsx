@@ -1,15 +1,14 @@
 import Sidebar from "@/components/layout/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useFetchAnalyses } from "@/hooks/useFetchAnalyses";
 import AnalysisModal from "@/components/ui/AnalysisModal";
+
 
 const History = () => {
     const navigate = useNavigate();
     const { user } = useAuth();
-    const [analyses, setAnalyses] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
     const [modalAnalysis, setModalAnalysis] = useState(null);
     // Mapping backend model names to display names
     const modelDisplayMap = {
@@ -18,19 +17,7 @@ const History = () => {
         "mt5": "mT-5",
         "mdeberta_v3": "mDeBERTa-v3",
     };
-
-    useEffect(() => {
-        if (!user?.uid) return;
-        setLoading(true);
-        setError("");
-        fetch(`http://localhost:5000/analysis?userId=${user.uid}`)
-            .then(res => res.json())
-            .then(data => {
-                setAnalyses(data.analyses || []);
-            })
-            .catch(err => setError("Failed to fetch history"))
-            .finally(() => setLoading(false));
-    }, [user?.uid]);
+    const { analyses, loading, error } = useFetchAnalyses(user);
 
     const handleStartNewAnalysis = () => {
         navigate("/userpanel", { state: { focusAnalysis: true } });
@@ -55,7 +42,9 @@ const History = () => {
                             <span className="text-gray-300 font-[Montserrat] whitespace-nowrap">Start new analysis</span>
                     </button>
                 </div>
-                {loading && <div className="text-white text-xl sm:text-2xl font-[Montserrat] font-semibold">Loading analysis...</div>}
+
+                {loading && <div className="text-white text-xl sm:text-2xl font-[Montserrat] font-semibold">Loading data...</div>}
+
                 {error && <div className="text-red-500 text-xl sm:text-2xl font-[Montserrat] font-semibold">{error}</div>}
                 {analyses.length === 0 && !loading && <div className="text-gray-400 text-xl sm:text-2xl font-[Montserrat] font-semibold">No analysis found.</div>}
                 <div className="w-full max-w-6xl overflow-x-auto mt-4">

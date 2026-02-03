@@ -11,7 +11,6 @@ const Statistics = () => {
                         Your statistics
                     </h1>
                 </div>
-
             </div>
         </div>
     )

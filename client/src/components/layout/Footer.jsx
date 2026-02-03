@@ -55,10 +55,10 @@ const Footer = () => {
                     <span className="font-[Montserrat] font-light text-gray-400 fade-in-hidden">In collaboration with</span>
                     <div className="flex flex-row items-center justify-center gap-4 fade-in-hidden h-12 ">
                         <div className="h-full w-16 flex items-center justify-center">
-                            <img src={FEI_logo} alt="FEI TUKE" className="h-full w-full object-contain flex-shrink-0" loading="lazy"/>
+                            <img src={FEI_logo} title="Fakulta eletrotechniky a informatiky TUKE" className="h-full w-full object-contain flex-shrink-0" loading="lazy"/>
                         </div>
                         <div className="h-full w-16 flex items-center justify-center">
-                            <img src={KPS_logo} alt="KPS FEI TUKE" className="h-full w-full object-contain flex-shrink-0" loading="lazy"/>
+                            <img src={KPS_logo} title="Katedra počítačových sietí" className="h-full w-full object-contain flex-shrink-0" loading="lazy"/>
                         </div>
                     </div>
                 </div>

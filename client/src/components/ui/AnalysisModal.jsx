@@ -34,7 +34,7 @@ export default function AnalysisModal({ analysis, onClose }) {
           <div className="flex flex-row items-center justify-between">
             <div className="flex flex-col items-center gap-2">
               <h2 className={`${resultColor} font-bold text-4xl`}>{capitalizedResult}</h2>
-              <h2 className="font-bold text-2xl">{analysis.confidence * 100}%</h2>
+              <h2 className="font-bold text-2xl">{(analysis.confidence * 100).toFixed(2)}%</h2>
             </div>
             <div className="flex flex-col items-center gap-2">
               <h2>{modelDisplayMap[analysis.model] || analysis.model}</h2>

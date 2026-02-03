@@ -43,13 +43,6 @@ const Contact = () => {
                 </div>
                 <form className="flex flex-col w-full md:w-[50%] py-4 mt-5 gap-4 items-center">
                     <div className="w-full sm:w-96 flex flex-col gap-1 fade-in-hidden">
-                        <label htmlFor="name" className="text-gray-400 text-sm font-[Montserrat]">
-                            Your name
-                        </label>
-                        <input id="name" type="text" className="text-white p-3 rounded-lg border border-gray-300 
-                        bg-transparent w-full focus:outline-none focus:border-blue-500 transition"/>
-                    </div>
-                    <div className="w-full sm:w-96 flex flex-col gap-1 fade-in-hidden">
                         <label htmlFor="email" className="text-gray-400 text-sm font-[Montserrat]">
                             Your e-mail
                         </label>

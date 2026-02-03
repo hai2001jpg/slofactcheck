@@ -11,12 +11,12 @@ const Home = () => {
       <div className='max-w-full text-white px-4 sm:px-6 md:px-10 lg:px-40 pt-8'>
         <div className="flex flex-col items-center gap-6">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-[Montserrat] font-bold tracking-tight max-w-4xl text-center capitalize fade-in-hidden">
-              SloFactCheck - your AI/ML partner for fake information verification
+              SloFactCheck - your AI/ML partner for fake information detection
           </h1>
           <p className="text-base sm:text-lg max-w-2xl text-center inter-font font-normal tracking-wide text-balance fade-in-hidden">
-            Powered by multilingual NLP models like mBERT, mT5, and XLM-RoBERTa, SloFactCheck helps
+            Powered by multilingual NLP models like mBERT, mT5, XLM-RoBERTa and mDeBERTa, SloFactCheck helps
             you quickly spot misleading or false information in news articles, social media posts,
-            and other online content. Simply enter your text and get clear, reliable insights — fast and easy.
+            and other online content. Simply enter your text and get clear, reliable insights fast and easy.
           </p>
           <Link to="/login">
             <button className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 sm:py-4 sm:px-8 cursor-pointer flex flex-row items-center gap-2
