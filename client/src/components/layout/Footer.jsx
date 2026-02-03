@@ -1,7 +1,7 @@
 import LazySVG from "../ui/LazySVG";
 import Carousel from "../ui/Carousel";
 import FEI_logo from "@/assets/img/FEI_logo.png";
-import KEMT_logo from "@/assets/img/kemt_logo.png";
+import KPS_logo from "@/assets/img/logo_kps_bez_pozadia.png";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -54,11 +54,11 @@ const Footer = () => {
                 <div className="flex flex-col gap-2 items-center fade-in mt-4 md:mt-0">
                     <span className="font-[Montserrat] font-light text-gray-400 fade-in-hidden">In collaboration with</span>
                     <div className="flex flex-row items-center justify-center gap-4 fade-in-hidden h-12 ">
-                        <div className="h-full w-12 flex items-center justify-center">
+                        <div className="h-full w-16 flex items-center justify-center">
                             <img src={FEI_logo} alt="FEI TUKE" className="h-full w-full object-contain flex-shrink-0" loading="lazy"/>
                         </div>
-                        <div className="h-full w-12 flex items-center justify-center">
-                            <img src={KEMT_logo} alt="KEMT FEI TUKE" className="h-full w-full object-contain flex-shrink-0" loading="lazy"/>
+                        <div className="h-full w-16 flex items-center justify-center">
+                            <img src={KPS_logo} alt="KPS FEI TUKE" className="h-full w-full object-contain flex-shrink-0" loading="lazy"/>
                         </div>
                     </div>
                 </div>

@@ -65,11 +65,7 @@ const Navbar = () => {
 
                     {isAuthenticated ? (
                         <div className="flex gap-4 items-center font-[Montserrat] text-md">
-                            <Link to="/userpanel">
-                                <button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300 text-nowrap">
-                                    User Panel
-                                </button>
-                            </Link>
+
                             <div className="rounded-full bg-white/10 border border-white/20 text-white h-10 w-10 flex items-center justify-center font-semibold uppercase overflow-hidden">
                                 {avatarUrl ? (
                                     <img
@@ -82,6 +78,11 @@ const Navbar = () => {
                                     initials
                                 )}
                             </div>
+                            <Link to="/userpanel">
+                                <button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300 text-nowrap">
+                                    User Panel
+                                </button>
+                            </Link>
                             <button
                                 className="bg-red-600 text-white px-4 py-2 rounded-md border border-red-600 hover:border-white transition duration-300 text-nowrap disabled:opacity-50"
                                 onClick={handleLogout}
@@ -130,11 +131,6 @@ const Navbar = () => {
                             <button onClick={() => scrollToSection("contact")} className="w-full text-white cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">Contact</button>
                             {isAuthenticated ? (
                                 <div className="w-full flex gap-4 justify-center pt-2 items-center">
-                                    <Link to="/userpanel" onClick={() => setOpen(false)}>
-                                        <button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300">
-                                            User Panel
-                                        </button>
-                                    </Link>
                                     <div className="rounded-full bg-white/10 border border-white/20 text-white h-10 w-10 flex items-center justify-center font-semibold uppercase overflow-hidden">
                                         {avatarUrl ? (
                                             <img
@@ -147,8 +143,13 @@ const Navbar = () => {
                                             initials
                                         )}
                                     </div>
+                                    <Link to="/userpanel" onClick={() => setOpen(false)}>
+                                        <button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300 cursor-pointer">
+                                            User Panel
+                                        </button>
+                                    </Link>
                                     <button
-                                        className="bg-red-600 text-white px-4 py-2 rounded-md border border-red-600 hover:border-white transition duration-300 disabled:opacity-50"
+                                        className="bg-red-600 text-white px-4 py-2 rounded-md border border-red-600 hover:border-white transition duration-300 disabled:opacity-50 cursor-pointer"
                                         onClick={handleLogout}
                                         disabled={isBusy}
                                     >

@@ -20,10 +20,12 @@ const Sidebar = () => {
     return (
         <div className="bg-[#111111] flex flex-col items-center min-h-full w-1/8 py-8 gap-4">
             <span className="block xl:hidden">
-                <TypingAnimation text="SFC" className="text-2xl font-bold text-white space-grotesk" />
+                {/* <TypingAnimation text="SFC" className="text-2xl font-bold text-white space-grotesk" /> */}
+                <h1 className="text-2xl font-bold text-white space-grotesk">SFC</h1>
             </span>
             <span className="hidden xl:block">
-                <TypingAnimation text="SloFactCheck" className="text-2xl font-bold text-white space-grotesk" />
+                {/* <TypingAnimation text="SloFactCheck" className="text-2xl font-bold text-white space-grotesk" /> */}
+                <h1 className="text-2xl font-bold text-white space-grotesk">SloFactCheck</h1>
             </span>
             <div className="flex flex-col gap-8 w-full px-4 flex-grow">
                 <div className="flex flex-col items-center gap-2">
@@ -41,10 +43,10 @@ const Sidebar = () => {
                             </svg>
                         )}
                     </div>
-                    <span className="text-white font-[Montserrat] font-semibold hidden lg:block">
+                    <span className="text-white font-[Montserrat] font-light hidden lg:block text-center text-nowrap">
                         {userName}
                     </span>
-                    <span className="text-white font-[Montserrat] font-semibold block lg:hidden">
+                    <span className="text-white font-[Montserrat] font-light block lg:hidden text-center">
                         {getInitials(userName)}
                     </span>
                 </div>

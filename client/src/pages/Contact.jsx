@@ -74,7 +74,7 @@ const Contact = () => {
                         type="submit"
                         className="text-white bg-blue-600 w-full sm:w-96 py-3 px-6 mt-2 rounded-full 
                         flex justify-center items-center gap-2 transition duration-300 hover:bg-blue-700 
-                        fade-in-hidden">
+                        fade-in-hidden cursor-pointer">
                         <span className="inter-font">Send Message</span>
                         <LazySvg>
                         <svg xmlns="http://www.w3.org/2000/svg" width="1vw" height="1vw" fill="white" className="bi bi-send" viewBox="0 0 16 16">

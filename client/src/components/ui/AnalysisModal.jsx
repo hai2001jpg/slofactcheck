@@ -38,7 +38,15 @@ export default function AnalysisModal({ analysis, onClose }) {
             </div>
             <div className="flex flex-col items-center gap-2">
               <h2>{modelDisplayMap[analysis.model] || analysis.model}</h2>
-              <h2>{analysis.createdAt ? (analysis.createdAt.seconds ? new Date(analysis.createdAt.seconds * 1000).toLocaleString() : String(analysis.createdAt)) : "N/A"}</h2>
+              <h2>
+                {analysis.createdAt
+                  ? (
+                      analysis.createdAt.seconds
+                        ? new Date(analysis.createdAt.seconds * 1000)
+                        : new Date(analysis.createdAt)
+                    ).toLocaleDateString("sk-SK")
+                  : "N/A"}
+              </h2>            
             </div>
           </div>
         </div>
