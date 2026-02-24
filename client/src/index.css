@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import 'tailwindcss';
 @import "tw-animate-css";
 
@@ -17,6 +18,7 @@ html {
   z-index: 100;
 }
 
+/* fonts */
 .space-grotesk {
   font-family: "Space Grotesk", sans-serif;
   font-optical-sizing: auto;
@@ -28,6 +30,19 @@ html {
   font-optical-sizing: auto;
   font-style: normal;
 }
+
+.bebas-neue {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 
 .bg {
   background-color: #0a0a0a;

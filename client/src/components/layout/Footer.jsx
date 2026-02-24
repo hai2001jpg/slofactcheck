@@ -20,7 +20,7 @@ const Footer = () => {
                 </h1>
             </Link>
             <div className="w-full flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
-                <nav className="flex flex-row md:flex-col flex-wrap justify-center text-white text-sm sm:text-base font-[Montserrat] gap-4 md:gap-2 flex-shrink-0 fade-in">
+                <nav className="flex flex-row md:flex-col flex-wrap justify-center text-white text-lg sm:text-xl bebas-neue gap-4 md:gap-2 flex-shrink-0 fade-in">
                     <h3 onClick={() => scrollToSection('home')} className="cursor-pointer hover:text-gray-300 transition">Home</h3>
                     <h3 onClick={() => scrollToSection('about')} className="cursor-pointer hover:text-gray-300 transition">About SFC</h3>
                     <h3 onClick={() => scrollToSection('contact')} className="cursor-pointer hover:text-gray-300 transition">Contact</h3>

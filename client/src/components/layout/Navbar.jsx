@@ -57,14 +57,14 @@ const Navbar = () => {
 
                 {/* Desktop menu */}
                 <div className="hidden lg:flex items-center gap-12">
-                    <div className="flex gap-12 text-md text-white font-[Montserrat] font-[500]">
+                    <div className="flex gap-12 text-md text-white bebas-neue text-xl">
                         <button onClick={() => scrollToSection("home")} className="cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">Home</button>
                         <button onClick={() => scrollToSection("about")} className="cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300 text-nowrap">About SFC</button>
                         <button onClick={() => scrollToSection("contact")} className="cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">Contact</button>
                     </div>
 
                     {isAuthenticated ? (
-                        <div className="flex gap-4 items-center font-[Montserrat] text-md">
+                        <div className="flex gap-4 items-center bebas-neue text-md">
 
                             <div className="rounded-full bg-white/10 border border-white/20 text-white h-10 w-10 flex items-center justify-center font-semibold uppercase overflow-hidden">
                                 {avatarUrl ? (
@@ -92,7 +92,7 @@ const Navbar = () => {
                             </button>
                         </div>
                     ) : (
-                        <div className="flex gap-4 font-[Montserrat] text-md">
+                        <div className="flex gap-4 montserrat text-md">
                             <Link to="/login"><button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300 text-nowrap">Log In</button></Link>
                             <Link to="/login"><button className="bg-blue-600 text-white px-4 py-2 rounded-md border border-blue-600 hover:border-white transition duration-300 text-nowrap">Sign Up</button></Link>
                         </div>
@@ -126,9 +126,9 @@ const Navbar = () => {
                         aria-hidden={!open}
                     >
                         <div className="max-w-screen-xl mx-auto px-4 flex flex-col gap-4 items-center py-4">
-                            <button onClick={() => scrollToSection("home")} className="w-full text-white cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">Home</button>
-                            <button onClick={() => scrollToSection("about")} className="w-full text-white cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">About SFC</button>
-                            <button onClick={() => scrollToSection("contact")} className="w-full text-white cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">Contact</button>
+                            <button onClick={() => scrollToSection("home")} className="w-full text-white bebas-neue text-lg cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">Home</button>
+                            <button onClick={() => scrollToSection("about")} className="w-full text-white bebas-neue text-lg cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">About SFC</button>
+                            <button onClick={() => scrollToSection("contact")} className="w-full text-white bebas-neue text-lg cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">Contact</button>
                             {isAuthenticated ? (
                                 <div className="w-full flex gap-4 justify-center pt-2 items-center">
                                     <div className="rounded-full bg-white/10 border border-white/20 text-white h-10 w-10 flex items-center justify-center font-semibold uppercase overflow-hidden">
@@ -144,12 +144,12 @@ const Navbar = () => {
                                         )}
                                     </div>
                                     <Link to="/userpanel" onClick={() => setOpen(false)}>
-                                        <button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300 cursor-pointer">
+                                        <button className="text-white montserrat px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300 cursor-pointer">
                                             User Panel
                                         </button>
                                     </Link>
                                     <button
-                                        className="bg-red-600 text-white px-4 py-2 rounded-md border border-red-600 hover:border-white transition duration-300 disabled:opacity-50 cursor-pointer"
+                                        className="bg-red-600 text-white montserrat px-4 py-2 rounded-md border border-red-600 hover:border-white transition duration-300 disabled:opacity-50 cursor-pointer"
                                         onClick={handleLogout}
                                         disabled={isBusy}
                                     >
@@ -157,7 +157,7 @@ const Navbar = () => {
                                     </button>
                                 </div>
                             ) : (
-                                <div className="w-full flex gap-4 justify-center pt-2">
+                                <div className="w-full flex gap-4 justify-center pt-2 montserrat">
                                     <Link to="/login"><button className="text-white px-4 py-2 rounded-md border border-[rgb(58,58,58)] hover:border-white transition duration-300">Log In</button></Link>
                                     <Link to="/login"><button className="bg-blue-600 text-white px-4 py-2 rounded-md border border-blue-600 hover:border-white transition duration-300">Sign Up</button></Link>
                                 </div>
