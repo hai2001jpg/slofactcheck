@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const AnalysisResult = ({ input, result, confidence, topic }) => (
   <div className="text-white text-base rounded-md montserrat flex flex-col gap-4 flex-grow">
@@ -26,5 +27,12 @@ const AnalysisResult = ({ input, result, confidence, topic }) => (
     </div>
   </div>
 );
+
+AnalysisResult.propTypes = {
+  input: PropTypes.string.isRequired,
+  result: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
+  confidence: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  topic: PropTypes.string,
+};
 
 export default AnalysisResult;

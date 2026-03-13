@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import useFadeIn from "@/hooks/useFadeIn";
 import LogoCard from "./LogoCard";
@@ -63,3 +64,7 @@ export default function LogoCarousel({ speed = 80 }) {
     </div>
   );
 }
+
+LogoCarousel.propTypes = {
+  speed: PropTypes.number,
+};

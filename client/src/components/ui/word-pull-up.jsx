@@ -1,4 +1,5 @@
 "use client";;
+import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
@@ -23,8 +24,11 @@ function WordPullUp({
 
   className
 }) {
+  const MotionHeading = motion.h1;
+  const MotionSpan = motion.span;
+
   return (
-    <motion.h1
+    <MotionHeading
       variants={wrapperFramerProps}
       initial="hidden"
       animate="show"
@@ -33,15 +37,22 @@ function WordPullUp({
         className
       )}>
       {words.split(" ").map((word, i) => (
-        <motion.span
+        <MotionSpan
           key={i}
           variants={framerProps}
           style={{ display: "inline-block", paddingRight: "8px" }}>
           {word === "" ? <span>&nbsp;</span> : word}
-        </motion.span>
+        </MotionSpan>
       ))}
-    </motion.h1>
+    </MotionHeading>
   );
 }
+
+WordPullUp.propTypes = {
+  words: PropTypes.string.isRequired,
+  wrapperFramerProps: PropTypes.object,
+  framerProps: PropTypes.object,
+  className: PropTypes.string,
+};
 
 export { WordPullUp };

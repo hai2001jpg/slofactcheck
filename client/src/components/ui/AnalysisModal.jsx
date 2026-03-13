@@ -1,4 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+import { analysisShape } from "@/lib/propTypes";
 
 export default function AnalysisModal({ analysis, onClose }) {
   if (!analysis) return null;
@@ -66,3 +69,8 @@ export default function AnalysisModal({ analysis, onClose }) {
     </div>
   );
 }
+
+AnalysisModal.propTypes = {
+  analysis: analysisShape,
+  onClose: PropTypes.func.isRequired,
+};

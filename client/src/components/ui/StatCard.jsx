@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useMemo, useState } from "react";
 
 const StatCard = ({ title, value, src}) => {
@@ -53,11 +54,11 @@ const StatCard = ({ title, value, src}) => {
     const showPercent = isNumeric && decimalPlaces > 0;
 
     return (
-        <div className="flex flex-col gap-4 bg-[#111111] opacity-80 p-4 lg:p-6 rounded-lg shadow-lg w-full lg:w-1/3 
+        <div className="flex h-full w-full flex-col gap-4 rounded-lg bg-[#111111] p-4 lg:p-6 opacity-80 shadow-lg
         hover:scale-102 transition-transform duration-300 drop-shadow-lg">
             <div className="flex flex-col md:flex-row gap-4 items-center">
                 <img src={src} className="w-8 h-8 bg-transparent"/>
-                <h2 className="text-gray-300 montserrat text-sm lg:text-lg self-end">
+                <h2 className="text-gray-300 montserrat text-sm lg:text-lg">
                     {title}
                 </h2>
              </div>
@@ -68,5 +69,11 @@ const StatCard = ({ title, value, src}) => {
         </div>
     );
 }
+
+StatCard.propTypes = {
+    title: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    src: PropTypes.string.isRequired,
+};
 
 export default StatCard;

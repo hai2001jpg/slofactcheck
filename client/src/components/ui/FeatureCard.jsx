@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import useFadeIn from "@/hooks/useFadeIn";
 
 export default function FeatureCard({ title, description, icon }) {
@@ -13,3 +14,9 @@ export default function FeatureCard({ title, description, icon }) {
         </div>
     );
 }
+
+FeatureCard.propTypes = {
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    icon: PropTypes.node.isRequired,
+};

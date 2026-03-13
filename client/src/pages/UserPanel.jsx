@@ -3,9 +3,9 @@ import { useFetchAnalyses } from "@/hooks/useFetchAnalyses";
 import Sidebar from "@/components/layout/Sidebar";
 import AnalysisResult from "@/components/ui/AnalysisResult";
 import FactCheckLinks from "@/components/ui/FactCheckLinks";
+import AnalysisLoading from "@/components/ui/AnalysisLoading";
 import { useAuth } from "@/hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
-import { WaveLoader } from "@/components/ui/wave-loader";
 import StatCard from "@/components/ui/StatCard";
 import { useAnalyzeText } from "@/hooks/useAnalyzeText";
 import factCheckIcon from "@/assets/img/check.svg";
@@ -70,13 +70,15 @@ const UserPanel = () => {
                         User Panel
                     </h1>
                 </div>
-                <div className="flex flex-row justify-between w-full px-4 lg:px-16 gap-4">
+                <div className="grid w-full grid-cols-3 gap-4 px-4 lg:px-16">
                     <StatCard title="Total Fact Checks" value={totalFactChecks} src={factCheckIcon}/>
                     <StatCard title="Total Disinformation Detected" value={totalDisinformation} src={disinformationIcon}/>
                     <StatCard title="Avg. Confidence" value={avgConfidence} src={avgConfidenceIcon} />
                 </div>
                 <div className="bg-[#111111] opacity-80 flex flex-col items-center lg:w-[calc(100%-8rem)] w-[calc(100%-2rem)] p-4 lg:p-6 gap-4 rounded-lg shadow-lg flex-grow">
-                    {lastAnalysis ? (
+                    {loading ? (
+                        <AnalysisLoading />
+                    ) : lastAnalysis ? (
                         <>
                             <AnalysisResult
                                 input={lastAnalysis.input}
@@ -138,15 +140,13 @@ const UserPanel = () => {
                                 disabled={loading || !analysisInput.trim()}
                             >
                                 <div className="text-white montserrat flex flex-row items-center justify-center">
-                                    {loading 
-                                    ? <WaveLoader message="Analyzing" messagePlacement="left" className="w-1 h-3" disabled/> 
-                                    : <div className="flex flex-row gap-2 items-center">
+                                    <div className="flex flex-row gap-2 items-center">
                                         Start analysis 
                                         <svg xmlns="http://www.w3.org/2000/svg" 
                                             width="1rem" height="1rem" fill="white" className="bi bi-search" viewBox="0 0 16 16">
                                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                                         </svg>
-                                     </div>}
+                                     </div>
                                 </div>
 
                             </button>

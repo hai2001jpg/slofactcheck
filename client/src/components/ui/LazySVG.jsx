@@ -1,4 +1,5 @@
 // LazySvg.js
+import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 
 export default function LazySvg({ children }) {
@@ -30,3 +31,7 @@ export default function LazySvg({ children }) {
     </div>
   );
 }
+
+LazySvg.propTypes = {
+  children: PropTypes.node.isRequired,
+};

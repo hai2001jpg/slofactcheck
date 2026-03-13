@@ -1,4 +1,5 @@
 "use client";;
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -24,7 +25,7 @@ export function TypingAnimation({
     return () => {
       clearInterval(typingEffect);
     };
-  }, [duration, i]);
+  }, [duration, i, text]);
 
   return (
     <h1
@@ -36,3 +37,9 @@ export function TypingAnimation({
     </h1>
   );
 }
+
+TypingAnimation.propTypes = {
+  text: PropTypes.string.isRequired,
+  duration: PropTypes.number,
+  className: PropTypes.string,
+};

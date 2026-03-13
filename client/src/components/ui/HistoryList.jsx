@@ -1,5 +1,7 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import AnalysisModal from "@/components/ui/AnalysisModal";
+import { analysisShape } from "@/lib/propTypes";
 
 const HistoryList = ({
         analyses,
@@ -62,6 +64,15 @@ const HistoryList = ({
             </div>
         </div>
     );
+};
+
+HistoryList.propTypes = {
+    analyses: PropTypes.arrayOf(analysisShape).isRequired,
+    paginatedAnalyses: PropTypes.arrayOf(analysisShape).isRequired,
+    modelDisplayMap: PropTypes.objectOf(PropTypes.string).isRequired,
+    totalPages: PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    setCurrentPage: PropTypes.func.isRequired,
 };
 
 export default HistoryList;
