@@ -10,6 +10,11 @@ from app_core.services.analysis_service import (
     predict_analysis,
     save_analysis,
 )
+from app_core.services.rate_limit_service import (
+    DailyLimitExceeded,
+    get_daily_usage_status,
+    reserve_daily_analysis_slot,
+)
 from app_core.services.topic_service import classify_topic
 
 
@@ -35,10 +40,51 @@ def analysis_route():
         bool(user_id),
     )
 
+    if not user_id or not str(user_id).strip():
+        return jsonify({"success": False, "error": "User ID is required."}), 400
     if not input_text or not str(input_text).strip():
         return jsonify({"success": False, "error": "Input text is required."}), 400
     if model_name not in settings.allowed_models:
         return jsonify({"success": False, "error": f"Unsupported model: {model_name}"}), 400
+    if db is None:
+        return jsonify({"success": False, "error": "Firebase not initialized"}), 500
+
+    rate_limit_started = perf_counter()
+    try:
+        usage_status = reserve_daily_analysis_slot(
+            db,
+            user_id=str(user_id),
+            daily_limit=settings.daily_analysis_limit,
+            timezone_name=settings.app_timezone,
+            collection_name=settings.analysis_rate_limit_collection,
+        )
+    except DailyLimitExceeded as exc:
+        current_app.logger.info(
+            "analysis denied user_id=%s reason=daily_limit limit=%d day=%s",
+            user_id,
+            exc.limit,
+            exc.day_key,
+        )
+        return jsonify(
+            {
+                "success": False,
+                "error": f"Daily analysis limit reached ({exc.limit} per day).",
+                "limit": exc.limit,
+                "remaining": exc.remaining,
+                "dayKey": exc.day_key,
+            }
+        ), 429
+    except Exception as exc:
+        current_app.logger.exception("Failed to reserve daily analysis slot for user '%s'", user_id)
+        return jsonify({"success": False, "error": f"Firebase error: {exc}"}), 500
+    current_app.logger.info(
+        "analysis rate_limit duration_ms=%.1f user_id=%s count=%d remaining=%d day=%s",
+        elapsed_ms(rate_limit_started),
+        user_id,
+        usage_status.count,
+        usage_status.remaining,
+        usage_status.day_key,
+    )
 
     topic = "others"
     topic_started = perf_counter()
@@ -67,9 +113,6 @@ def analysis_route():
         confidence,
     )
 
-    if db is None:
-        return jsonify({"success": False, "error": "Firebase not initialized"}), 500
-
     firestore_started = perf_counter()
     try:
         document = build_analysis_document(user_id, input_text, model_name, result, confidence, topic)
@@ -83,12 +126,23 @@ def analysis_route():
     )
     current_app.logger.info("analysis completed duration_ms=%.1f", elapsed_ms(route_started))
 
-    return jsonify({"success": True, "result": result, "confidence": confidence, "topic": topic})
+    return jsonify(
+        {
+            "success": True,
+            "result": result,
+            "confidence": confidence,
+            "topic": topic,
+            "remainingAnalysesToday": usage_status.remaining,
+            "dailyLimit": usage_status.limit,
+            "dayKey": usage_status.day_key,
+        }
+    )
 
 
 @analysis_bp.route("/analysis", methods=["GET"])
 def get_user_analysis():
     route_started = perf_counter()
+    settings = current_app.config["SETTINGS"]
     db = current_app.extensions.get("db")
     user_id = request.args.get("userId")
 
@@ -99,12 +153,27 @@ def get_user_analysis():
 
     try:
         results = fetch_user_analyses(db, user_id)
+        usage_status = get_daily_usage_status(
+            db,
+            user_id=str(user_id),
+            daily_limit=settings.daily_analysis_limit,
+            timezone_name=settings.app_timezone,
+            collection_name=settings.analysis_rate_limit_collection,
+        )
         current_app.logger.info(
-            "analysis_history loaded user_id=%s documents=%d duration_ms=%.1f",
+            "analysis_history loaded user_id=%s documents=%d remaining=%d duration_ms=%.1f",
             user_id,
             len(results),
+            usage_status.remaining,
             elapsed_ms(route_started),
         )
-        return jsonify({"analyses": results})
+        return jsonify(
+            {
+                "analyses": results,
+                "remainingAnalysesToday": usage_status.remaining,
+                "dailyLimit": usage_status.limit,
+                "dayKey": usage_status.day_key,
+            }
+        )
     except Exception as exc:
         return jsonify({"error": f"Firebase error: {exc}"}), 500

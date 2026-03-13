@@ -56,6 +56,8 @@ export function useAnalyzeText() {
         model: selectedModel,
         factCheckResults,
         factCheckError,
+        remainingAnalysesToday: data.remainingAnalysesToday ?? null,
+        dailyLimit: data.dailyLimit ?? null,
       };
     } catch (err) {
       setError(`Failed to analyze: ${err.message}`);

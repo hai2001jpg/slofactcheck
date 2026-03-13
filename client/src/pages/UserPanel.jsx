@@ -18,6 +18,8 @@ const UserPanel = () => {
         totalFactChecks,
         totalDisinformation,
         avgConfidence,
+        remainingAnalysesToday,
+        dailyAnalysisLimit,
         refetch: refetchAnalyses
     } = useFetchAnalyses(user);
 
@@ -60,6 +62,9 @@ const UserPanel = () => {
             refetchAnalyses();
         }
     };
+
+    const hasRemainingLimitInfo = remainingAnalysesToday !== null && dailyAnalysisLimit !== null;
+    const hasNoAnalysesLeft = remainingAnalysesToday === 0;
 
     return(
         <div className="flex flex-row justify-center min-h-screen overflow-hidden">
@@ -106,6 +111,14 @@ const UserPanel = () => {
                             <h2 className="text-white montserrat text-xl lg:text-2xl font-normal self-start">
                                 <b>Disinformation</b> detection
                             </h2>
+                            {hasRemainingLimitInfo && (
+                                <p className="montserrat text-sm lg:text-base text-gray-300 self-start">
+                                    Daily Limit:{" "}
+                                    <span className={`font-semibold ${hasNoAnalysesLeft ? "text-red-400" : "text-white"}`}>
+                                        {remainingAnalysesToday} / {dailyAnalysisLimit}
+                                    </span>
+                                </p>
+                            )}
                             <div className="w-full flex sm:flex-row flex-col gap-2 items-center justify-center">
    
                                 <label className="text-gray-300 text-sm lg:text-base text-nowrap sm:text-wrap montserrat" htmlFor="model-select">
@@ -135,9 +148,10 @@ const UserPanel = () => {
                             />
                             <button
                                 className="flex flex-row justify-between items-center bg-blue-600 text-lg py-3 px-6 rounded-full gap-2 
-                                hover:bg-blue-700 hover:scale-102 hover:-translate-y-0.5 transition duration-300 cursor-pointer"
+                                hover:bg-blue-700 hover:scale-102 hover:-translate-y-0.5 transition duration-300 cursor-pointer
+                                disabled:opacity-50 disabled:hover:bg-blue-600 disabled:hover:scale-100 disabled:hover:translate-y-0 disabled:cursor-not-allowed"
                                 onClick={handleStartAnalysis}
-                                disabled={loading || !analysisInput.trim()}
+                                disabled={loading || !analysisInput.trim() || hasNoAnalysesLeft}
                             >
                                 <div className="text-white montserrat flex flex-row items-center justify-center">
                                     <div className="flex flex-row gap-2 items-center">
@@ -150,6 +164,11 @@ const UserPanel = () => {
                                 </div>
 
                             </button>
+                            {hasNoAnalysesLeft && (
+                                <div className="text-red-400 mt-2 text-sm montserrat">
+                                    You have reached your daily analysis limit.
+                                </div>
+                            )}
                             {error && <div className="text-red-500 mt-2 text-sm">{error}</div>}
                         </>
                     )}

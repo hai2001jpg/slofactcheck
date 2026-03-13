@@ -7,11 +7,17 @@ export function useFetchAnalyses(user) {
     const [totalFactChecks, setTotalFactChecks] = useState(0);
     const [totalDisinformation, setTotalDisinformation] = useState(0);
     const [avgConfidence, setAvgConfidence] = useState(0);
+    const [remainingAnalysesToday, setRemainingAnalysesToday] = useState(null);
+    const [dailyAnalysisLimit, setDailyAnalysisLimit] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     const fetchAnalyses = async () => {
-        if (!user?.uid) return;
+        if (!user?.uid) {
+            setRemainingAnalysesToday(null);
+            setDailyAnalysisLimit(null);
+            return;
+        }
         setLoading(true);
         setError("");
         try {
@@ -20,6 +26,8 @@ export function useFetchAnalyses(user) {
             const data = await response.json();
             setAnalyses(data.analyses || []);
             setTotalFactChecks(data.analyses.length);
+            setRemainingAnalysesToday(data.remainingAnalysesToday ?? null);
+            setDailyAnalysisLimit(data.dailyLimit ?? null);
             const disinfoCount = data.analyses.filter(a => String(a.result) === "false").length;
             setTotalDisinformation(disinfoCount);
             const avgConf = data.analyses.length > 0 ?
@@ -31,6 +39,8 @@ export function useFetchAnalyses(user) {
             setTotalFactChecks(0);
             setTotalDisinformation(0);
             setAvgConfidence(0);
+            setRemainingAnalysesToday(null);
+            setDailyAnalysisLimit(null);
             setError(err.message || "Unknown error");
         } finally {
             setLoading(false);
@@ -47,6 +57,8 @@ export function useFetchAnalyses(user) {
         totalFactChecks,
         totalDisinformation,
         avgConfidence,
+        remainingAnalysesToday,
+        dailyAnalysisLimit,
         loading,
         error,
         refetch: fetchAnalyses

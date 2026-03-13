@@ -22,6 +22,9 @@ class Settings:
     topic_choices: tuple[str, ...]
     trusted_factcheck_domains: tuple[str, ...]
     allowed_models: tuple[str, ...]
+    daily_analysis_limit: int
+    app_timezone: str
+    analysis_rate_limit_collection: str
 
 
 def load_settings():
@@ -53,4 +56,10 @@ def load_settings():
             "demagog.sk",
         ),
         allowed_models=("mbert", "xlm_roberta", "mt5", "mdeberta_v3"),
+        daily_analysis_limit=int(os.getenv("DAILY_ANALYSIS_LIMIT", "10")),
+        app_timezone=os.getenv("APP_TIMEZONE", "Europe/Bratislava"),
+        analysis_rate_limit_collection=os.getenv(
+            "ANALYSIS_RATE_LIMIT_COLLECTION",
+            "analysis_daily_usage",
+        ),
     )

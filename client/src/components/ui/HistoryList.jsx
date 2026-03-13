@@ -35,7 +35,12 @@ const HistoryList = ({
                             className="bg-[#222] rounded-lg p-3 sm:p-4 grid grid-cols-2 sm:grid-cols-[minmax(0,1fr)_90px_90px_120px]
                                      gap-4 sm:gap-6 items-center text-white shadow cursor-pointer hover:bg-[#333]"
                             onClick={() => setModalAnalysis(a)}>
-                            <div className="truncate max-w-full" title={a.input}>{a.input}</div>
+                            <div className="min-w-0 flex flex-col gap-1">
+                                <div className="truncate max-w-full" title={a.input}>{a.input}</div>
+                                <div className="truncate max-w-full text-xs text-gray-400" title={a.topic || "N/A"}>
+                                    Category: {a.topic || "N/A"}
+                                </div>
+                            </div>
                             <div className={`text-center font-bold ${String(a.result) === "false" ? "text-red-500" : "text-blue-500"}`}>{String(a.result).charAt(0).toUpperCase() + String(a.result).slice(1)}</div>
                             <div className="hidden sm:block text-center font-bold">{(Math.round(Number(a.confidence) * 10000) / 100).toFixed(2)}%</div>
                             <div className="hidden sm:block text-center font-bold text-nowrap">{modelDisplayMap[a.model] || a.model}</div>

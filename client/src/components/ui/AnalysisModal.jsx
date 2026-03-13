@@ -44,6 +44,10 @@ export default function AnalysisModal({ analysis, onClose }) {
                 <h5 className="text-sm text-gray-400 montserrat">Confidence</h5>
                 <h2 className="font-bold text-2xl">{(analysis.confidence * 100).toFixed(2)}%</h2>
               </div>
+              <div className="flex flex-col gap-1">
+                <h5 className="text-sm text-gray-400 montserrat">Category</h5>
+                <h2>{analysis.topic || "N/A"}</h2>
+              </div>
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex flex-col gap-1">
