@@ -34,21 +34,21 @@ export default function AnalysisModal({ analysis, onClose }) {
           <div className="flex flex-row items-center justify-between">
             <div className="flex flex-col justify-center gap-2">
               <div className="flex flex-col gap-1">
-                <h5 className="text-sm text-gray-400 font-[Montserrat]">Result</h5>
+                <h5 className="text-sm text-gray-400 montserrat">Result</h5>
                 <h2 className={`${resultColor} font-bold text-4xl`}>{capitalizedResult}</h2>
               </div>
               <div className="flex flex-col gap-1">
-                <h5 className="text-sm text-gray-400 font-[Montserrat]">Confidence</h5>
+                <h5 className="text-sm text-gray-400 montserrat">Confidence</h5>
                 <h2 className="font-bold text-2xl">{(analysis.confidence * 100).toFixed(2)}%</h2>
               </div>
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex flex-col gap-1">
-                 <h5 className="text-sm text-gray-400 font-[Montserrat]">Model</h5>
+                 <h5 className="text-sm text-gray-400 montserrat">Model</h5>
                  <h2>{modelDisplayMap[analysis.model] || analysis.model}</h2>
               </div>
               <div className="flex flex-col gap-1">
-                <h5 className="text-sm text-gray-400 font-[Montserrat]">Created</h5>
+                <h5 className="text-sm text-gray-400 montserrat">Created</h5>
                 <h2>
                   {analysis.createdAt
                     ? (

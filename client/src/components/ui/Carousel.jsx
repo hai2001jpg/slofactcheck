@@ -4,7 +4,6 @@ import LogoCard from "./LogoCard";
 import react_logo from "@/assets/img/react.png";
 import firebase_logo from "@/assets/img/firebase.png";
 import tailwind_logo from "@/assets/img/tailwindcss_logo.png";
-import shadcn_logo from "@/assets/img/shadcn.png";
 import pytorch_logo from "@/assets/img/pytorch_logo.png";
 import flask_logo from "@/assets/img/flask_logo.png";
 
@@ -39,28 +38,24 @@ export default function LogoCarousel({ speed = 80 }) {
           <LogoCard img={react_logo} name="React.js" />
           <LogoCard img={tailwind_logo} name="TailwindCSS" />
           <LogoCard img={firebase_logo} name="Firebase" />
-          <LogoCard img={shadcn_logo} name="ShadCN" invert />
           <LogoCard img={flask_logo} name="Flask" invert/>
           <LogoCard img={pytorch_logo} name="PyTorch" to_white/>
           { /* duplicate */ }
           <LogoCard img={react_logo} name="React.js" />
           <LogoCard img={tailwind_logo} name="TailwindCSS" />
           <LogoCard img={firebase_logo} name="Firebase" />
-          <LogoCard img={shadcn_logo} name="ShadCN" invert />
           <LogoCard img={flask_logo} name="Flask" invert/>
           <LogoCard img={pytorch_logo} name="PyTorch" to_white/>
 
           <LogoCard img={react_logo} name="React.js" />
           <LogoCard img={tailwind_logo} name="TailwindCSS" />
           <LogoCard img={firebase_logo} name="Firebase" />
-          <LogoCard img={shadcn_logo} name="ShadCN" invert />
           <LogoCard img={flask_logo} name="Flask" invert/>
           <LogoCard img={pytorch_logo} name="PyTorch" to_white/>
           { /* duplicate */ }
           <LogoCard img={react_logo} name="React.js" />
           <LogoCard img={tailwind_logo} name="TailwindCSS" />
           <LogoCard img={firebase_logo} name="Firebase" />
-          <LogoCard img={shadcn_logo} name="ShadCN" invert />
           <LogoCard img={flask_logo} name="Flask" invert/>
           <LogoCard img={pytorch_logo} name="PyTorch" to_white/>
         </div>

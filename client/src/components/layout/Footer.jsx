@@ -19,7 +19,7 @@ const Footer = () => {
                     SloFactCheck
                 </h1>
             </Link>
-            <div className="w-full flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
+            <div className="w-full flex flex-col md:flex-row justify-center items-center gap-2 md:gap-8">
                 <nav className="flex flex-row md:flex-col flex-wrap justify-center text-white text-lg sm:text-xl bebas-neue gap-4 md:gap-2 flex-shrink-0 fade-in">
                     <h3 onClick={() => scrollToSection('home')} className="cursor-pointer hover:text-gray-300 transition">Home</h3>
                     <h3 onClick={() => scrollToSection('about')} className="cursor-pointer hover:text-gray-300 transition">About SFC</h3>
@@ -52,7 +52,7 @@ const Footer = () => {
                     </a>
                 </div>
                 <div className="flex flex-col gap-2 items-center fade-in mt-4 md:mt-0">
-                    <span className="font-[Montserrat] font-light text-gray-400 fade-in-hidden">In collaboration with</span>
+                    <span className="montserrat font-light text-gray-400 fade-in-hidden">In collaboration with</span>
                     <div className="flex flex-row items-center justify-center gap-4 fade-in-hidden h-12 ">
                         <div className="h-full w-16 flex items-center justify-center">
                             <img src={FEI_logo} title="Fakulta eletrotechniky a informatiky TUKE" className="h-full w-full object-contain flex-shrink-0" loading="lazy"/>
@@ -64,10 +64,10 @@ const Footer = () => {
                 </div>
             </div>
 
-        <div className="w-full sm:w-2/5 xs:w-3/5 h-px bg-gray-700 mx-auto line-expand"></div>
-        <span className="font-[Montserrat] font-light text-gray-400 text-sm fade-in-hidden fade-in">Created with</span>
+        <div className="md:w-2/5 lg:w-3/5 w-4/5 h-px bg-gray-700 mx-auto line-expand"></div>
+        <span className="montserrat font-light text-gray-400 text-sm fade-in-hidden fade-in">Created with</span>
         <Carousel speed={100} />
-        <p className="text-white text-[14px] sm:text-sm font-[Montserrat] text-center fade-in">
+        <p className="text-white text-[14px] sm:text-sm montserrat text-center fade-in">
             &copy; 2025 Hai Tran Ngoc | All rights reserved.
         </p>
     </footer>

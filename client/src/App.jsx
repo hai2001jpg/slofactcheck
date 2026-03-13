@@ -16,7 +16,7 @@ function App() {
   const hideNav = ["/login", "/userpanel", "/history", "/statistics"].includes(location.pathname);
 
   return (
-    <div className="bg flex flex-col min-h-screen">
+    <div className="bg">
       {!hideNav && <Navbar />}
 
       <main className="flex-grow overflow-hidden">
@@ -43,7 +43,7 @@ function App() {
                 <ProtectedRoute>
                   <PageWrapper routeKey="/userpanel">
                     <UserPanel />
-                  </PageWrapper>
+                  </PageWrapper>  
                 </ProtectedRoute>
               }
             />
@@ -51,9 +51,7 @@ function App() {
               path="/history"
               element={
                 <ProtectedRoute>
-                  <PageWrapper routeKey="/history">
                     <History />
-                  </PageWrapper>
                 </ProtectedRoute>
               }
             />
@@ -61,9 +59,7 @@ function App() {
               path="/statistics"
               element={
                 <ProtectedRoute>
-                  <PageWrapper routeKey="/statistics">
                     <Statistics />
-                  </PageWrapper>
                 </ProtectedRoute>
               }
             />

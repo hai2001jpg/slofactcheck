@@ -23,22 +23,25 @@ const Login = () => {
   };
   return (
     <div className="bg h-screen flex justify-center items-center">
-      <div className="py-10 px-12 bg-[#1B1B1B] flex rounded-lg flex-col items-center gap-6 shadow-lg font-[Montserrat] gradient-border">
+      <div className="py-10 px-12 bg-[#1B1B1B] flex rounded-lg flex-col items-center gap-6 shadow-lg montserrat gradient-border">
         <Link to="/">
-            <button className="border rounded-full border-white/40 p-3 hover:bg-white/10 transition duration-300 cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="1.5rem" height="1.5rem" viewBox="0 0 48 48" className="invert">
-                    <path d="M 23.951172 4 A 1.50015 1.50015 0 0 0 23.072266 4.3222656 L 8.859375 15.519531 C 7.0554772 16.941163 6 19.113506 6 21.410156 L 6 40.5 C 6 41.863594 7.1364058 43 8.5 43 L 18.5 43 C 19.863594 43 21 41.863594 21 40.5 L 21 30.5 C 21 30.204955 21.204955 30 21.5 30 L 26.5 30 C 26.795045 30 27 30.204955 27 30.5 L 27 40.5 C 27 41.863594 28.136406 43 29.5 43 L 39.5 43 C 40.863594 43 42 41.863594 42 40.5 L 42 21.410156 C 42 19.113506 40.944523 16.941163 39.140625 15.519531 L 24.927734 4.3222656 A 1.50015 1.50015 0 0 0 23.951172 4 z M 24 7.4101562 L 37.285156 17.876953 C 38.369258 18.731322 39 20.030807 39 21.410156 L 39 40 L 30 40 L 30 30.5 C 30 28.585045 28.414955 27 26.5 27 L 21.5 27 C 19.585045 27 18 28.585045 18 30.5 L 18 40 L 9 40 L 9 21.410156 C 9 20.030807 9.6307412 18.731322 10.714844 17.876953 L 24 7.4101562 z"></path>
+            <button className="border border-white/40 py-3 px-8 bg-white/10 hover:bg-white/40 transition duration-300 cursor-pointer text-white flex flex-row 
+            items-center justify-center gap-2">
+                Return Home 
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
                 </svg>
             </button>
         </Link>
         <div className="flex flex-col gap-4 text-center">
-            <h1 className="text-white text-5xl font-[Montserrat] font-bold text-nowrap">Welcome back!</h1>  
-            <p className="text-white text-sm font-[Montserrat] text-nowrap">Sign in to continue to your dashboard</p>
+            <h1 className="text-white text-5xl montserrat font-bold text-nowrap">Welcome back!</h1>  
+            <p className="text-white text-sm montserrat text-nowrap">Sign in to continue to your dashboard</p>
         </div>
         <div className="w-full h-px bg-gray-700 mx-auto"></div>
         <div className="flex flex-col gap-4 items-center w-[90%]">
           <button
-            className="text-white py-3 px-6 cursor-pointer border border-white/40 rounded-md flex flex-row justify-center items-center font-semibold w-full gap-2 hover:bg-white/10 transition duration-300"
+            className="text-white py-3 px-6 cursor-pointer border border-white/40 rounded-md flex flex-row justify-center items-center 
+            font-normal w-full gap-2 hover:bg-white/10 transition duration-300"
             onClick={handleGoogleAuth}
             disabled={loading}
           >
@@ -75,7 +78,8 @@ const Login = () => {
           <span className="text-white">or</span>
 
           <button
-            className="text-white py-3 px-6 cursor-pointer border border-white/40 rounded-md flex flex-row justify-center items-center font-semibold w-full gap-2 hover:bg-white/10 transition duration-300"
+            className="text-white py-3 px-6 cursor-pointer border border-white/40 rounded-md flex flex-row justify-center items-center 
+            font-normal w-full gap-2 hover:bg-white/10 transition duration-300"
             onClick={handleGoogleAuth}
             disabled={loading}
           >

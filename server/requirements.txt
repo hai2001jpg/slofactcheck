@@ -3,3 +3,7 @@ firebase-admin
 python-dotenv
 transformers
 torch
+openai
+requests
+flask-cors
+gunicorn

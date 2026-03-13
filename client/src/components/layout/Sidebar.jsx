@@ -1,14 +1,14 @@
-import { TypingAnimation } from "@/components/ui/typing-animation";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 
 const Sidebar = () => {
     const { user, logout } = useAuth();
-    const userName = user?.displayName ?? "John Doe";
+    const userName = user?.displayName ?? "Guest";
     const avatarUrl = user?.photoURL ?? "";
     // helper for getting initials
     const getInitials = (name) => name.split(' ').map(n => n[0]).join('');
     const location = useLocation();
+
     const handleLogout = async () => {
         try {
             await logout();
@@ -18,13 +18,11 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="bg-[#111111] flex flex-col items-center min-h-full w-1/8 py-8 gap-4">
+        <div className="bg-[#111111] flex flex-col items-center min-h-full w-1/8 py-8 gap-4 shadow-lg">
             <span className="block xl:hidden">
-                {/* <TypingAnimation text="SFC" className="text-2xl font-bold text-white space-grotesk" /> */}
                 <h1 className="text-2xl font-bold text-white space-grotesk">SFC</h1>
             </span>
             <span className="hidden xl:block">
-                {/* <TypingAnimation text="SloFactCheck" className="text-2xl font-bold text-white space-grotesk" /> */}
                 <h1 className="text-2xl font-bold text-white space-grotesk">SloFactCheck</h1>
             </span>
             <div className="flex flex-col gap-8 w-full px-4 flex-grow">
@@ -43,17 +41,17 @@ const Sidebar = () => {
                             </svg>
                         )}
                     </div>
-                    <span className="text-white font-[Montserrat] font-light hidden lg:block text-center text-nowrap">
+                    <span className="text-white montserrat font-light hidden lg:block text-center text-nowrap">
                         {userName}
                     </span>
-                    <span className="text-white font-[Montserrat] font-light block lg:hidden text-center">
+                    <span className="text-white montserrat font-light block lg:hidden text-center">
                         {getInitials(userName)}
                     </span>
                 </div>
                 <div className="flex flex-col gap-4">
                     <Link
                         to="/"
-                        className={`text-white font-[Montserrat] hover:text-blue-500 hover:bg-gray-800 rounded lg:px-4 lg:py-2 p-2 transition duration-300 
+                        className={`text-white montserrat hover:text-blue-500 hover:bg-gray-800 rounded lg:px-4 lg:py-2 p-2 transition duration-300 
                         ${location.pathname === "/" ? "bg-gray-800" : ""}`}>
                         <div className="flex flex-row items-center gap-4 justify-center lg:justify-start">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" className="bi bi-house flex-shrink-0" viewBox="0 0 16 16">
@@ -64,7 +62,7 @@ const Sidebar = () => {
                     </Link>
                     <Link
                         to="/userpanel"
-                        className={`text-white font-[Montserrat] hover:text-blue-500 hover:bg-gray-800 rounded lg:px-4 lg:py-2 p-2 transition duration-300 
+                        className={`text-white montserrat hover:text-blue-500 hover:bg-gray-800 rounded lg:px-4 lg:py-2 p-2 transition duration-300 
                         ${location.pathname === "/userpanel" ? "bg-gray-800" : ""}`}>
                         <div className="flex flex-row items-center gap-4 justify-center lg:justify-start">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" className="bi bi-columns flex-shrink-0" viewBox="0 0 16 16">
@@ -75,7 +73,7 @@ const Sidebar = () => {
                     </Link>
                     <Link
                         to="/history"
-                        className={`text-white font-[Montserrat] hover:text-blue-500 hover:bg-gray-800 rounded lg:px-4 lg:py-2 p-2 transition duration-300 
+                        className={`text-white montserrat hover:text-blue-500 hover:bg-gray-800 rounded lg:px-4 lg:py-2 p-2 transition duration-300 
                         ${location.pathname === "/history" ? "bg-gray-800" : ""}`}>
                         <div className="flex flex-row items-center gap-4 justify-center lg:justify-start">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" className="bi bi-clock-history flex-shrink-0" viewBox="0 0 16 16">
@@ -88,7 +86,7 @@ const Sidebar = () => {
                     </Link>
                     <Link
                         to="/statistics"
-                        className={`text-white font-[Montserrat] hover:text-blue-500 hover:bg-gray-800 rounded lg:px-4 lg:py-2 p-2 transition duration-300 
+                        className={`text-white montserrat hover:text-blue-500 hover:bg-gray-800 rounded lg:px-4 lg:py-2 p-2 transition duration-300 
                         ${location.pathname === "/statistics" ? "bg-gray-800" : ""}`}>
                         <div className="flex flex-row items-center gap-4 justify-center lg:justify-start">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" className="bi bi-bar-chart flex-shrink-0" viewBox="0 0 16 16">

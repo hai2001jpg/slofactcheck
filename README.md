@@ -1,1 +1,1 @@
-# slofactcheck
+# SloFactCheck

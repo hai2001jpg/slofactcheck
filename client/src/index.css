@@ -39,7 +39,6 @@ html {
 
 .montserrat {
   font-family: "Montserrat", sans-serif;
-  font-weight: 400;
   font-style: normal;
 }
 
@@ -48,6 +47,34 @@ html {
   background-color: #0a0a0a;
   background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
   background-size: 2vw 2vw;
+}
+
+.bg-2 {
+  background-image: linear-gradient(to left bottom, 
+  #1b1b1b, #1f1f24, #21242d, #212936, #1e2e40,
+  #1d3449, #1b3b53, #17425c, #194b69, #1b5475,
+  #1d5e83, #1f6790);
+  background-size: 220% 220%;
+  background-position: 0% 50%;
+  animation: bg-2-shift 16s ease-in-out infinite alternate;
+}
+
+@keyframes bg-2-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-2 {
+    animation: none;
+  }
 }
 
 .fade-mask {

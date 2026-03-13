@@ -6,7 +6,7 @@ function LogoCard({ img, name, to_white = false, invert = false }) {
         src={img}
         alt={name}
         loading="lazy"
-        className={`w-[1.5vw] h-auto ${invert ? "invert" : ""} ${to_white ? "to-white" : ""}`}
+        className={`w-[1.5rem] h-auto ${invert ? "invert" : ""} ${to_white ? "to-white" : ""}`}
       />
       <span className="font-[Montserrat] text-base text-white">{name}</span>
     </div>
