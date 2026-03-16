@@ -15,7 +15,7 @@ const HistoryList = ({
 
     return (
         <div className="w-full flex justify-center items-center max-w-6xl overflow-x-none mt-4 flex-1">
-            <div className="flex flex-col w-full min-w-[340px] sm:min-w-[500px] md:min-w-[600px] lg:min-w-[700px] 
+            <div className="flex flex-col w-[95%] min-w-[340px] sm:min-w-[500px] md:min-w-[600px] lg:min-w-[700px] 
                     montserrat  min-h-[65vh] gap-2">
                 {/* header*/}
                 {analyses.length > 0 && (

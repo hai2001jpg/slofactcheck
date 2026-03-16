@@ -25,8 +25,8 @@ const Login = () => {
     <div className="bg h-screen flex justify-center items-center">
       <div className="py-10 px-12 bg-[#1B1B1B] flex rounded-lg flex-col items-center gap-6 shadow-lg montserrat gradient-border">
         <Link to="/">
-            <button className="border border-white/40 py-3 px-8 bg-white/10 hover:bg-white/40 transition duration-300 cursor-pointer text-white flex flex-row 
-            items-center justify-center gap-2">
+            <button className="border border-white/40 py-3 px-8 bg-white/10 hover:bg-white/40 transition duration-300 
+            cursor-pointer text-white flex flex-row items-center justify-center gap-2">
                 Return Home 
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
