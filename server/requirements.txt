@@ -1,8 +1,7 @@
 flask
 firebase-admin
+gradio_client
 python-dotenv
-transformers
-torch
 openai
 requests
 flask-cors
