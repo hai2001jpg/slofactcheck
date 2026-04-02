@@ -1,0 +1,24 @@
+{
+  "app": {
+    "name": "SloFactCheck",
+    "shortName": "SFC"
+  },
+  "aria": {
+    "close": "Zavrieť dialógové okno"
+  },
+  "status": {
+    "loadingData": "Načítavam dáta...",
+    "loadingStatistics": "Načítavam štatistiky..."
+  },
+  "fallback": {
+    "notAvailable": "N/A",
+    "guest": "Hosť"
+  },
+  "errors": {
+    "unknown": "Neznáma chyba",
+    "fetchAnalyses": "Nepodarilo sa načítať analýzy.",
+    "server": "Chyba servera",
+    "factCheckSearch": "Nepodarilo sa vyhľadať fact-check zdroje",
+    "analyzeFailed": "Analýza zlyhala: {{message}}"
+  }
+}

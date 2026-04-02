@@ -1,0 +1,12 @@
+{
+  "title": "História",
+  "empty": "Nenašla sa žiadna analýza.",
+  "startNewAnalysis": "Spustiť novú analýzu",
+  "table": {
+    "input": "Vstup",
+    "result": "Výsledok",
+    "confidence": "Pravdepodobnosť",
+    "model": "Model",
+    "category": "Kategória"
+  }
+}

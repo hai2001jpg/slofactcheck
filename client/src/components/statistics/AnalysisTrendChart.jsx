@@ -1,22 +1,25 @@
 import PropTypes from "prop-types";
 import { LineChart } from "@mui/x-charts/LineChart";
+import { useTranslation } from "react-i18next";
 
 import ChartCard from "./ChartCard";
+import { getDateLocale } from "@/i18n";
 import { buildDailyTrend } from "./chartUtils";
 import { analysisShape } from "@/lib/propTypes";
 
 export default function AnalysisTrendChart({ analyses }) {
-  const chartData = buildDailyTrend(analyses);
+  const { i18n, t } = useTranslation("statistics");
+  const chartData = buildDailyTrend(analyses, getDateLocale(i18n.language));
 
   return (
     <ChartCard
-      title="Daily Activity Trend"
-      description="No. of analyses completed each day"
+      title={t("charts.trend.title")}
+      description={t("charts.trend.description")}
       className="lg:col-span-2"
     >
       {chartData.length === 0 ? (
         <div className="flex h-full min-h-[260px] items-center justify-center text-sm text-gray-400">
-          No date data available.
+          {t("charts.trend.empty")}
         </div>
       ) : (
         <LineChart
@@ -36,7 +39,7 @@ export default function AnalysisTrendChart({ analyses }) {
           series={[
             {
               data: chartData.map((item) => item.count),
-              label: "Analyses",
+              label: t("charts.trend.seriesLabel"),
               color: "#f59e0b",
               curve: "monotoneX",
             },

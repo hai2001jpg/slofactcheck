@@ -1,21 +1,27 @@
 import PropTypes from "prop-types";
 import { PieChart } from "@mui/x-charts/PieChart";
+import { useTranslation } from "react-i18next";
 
 import ChartCard from "./ChartCard";
 import { buildResultDistribution } from "./chartUtils";
 import { analysisShape } from "@/lib/propTypes";
 
 export default function ResultDistributionChart({ analyses }) {
-  const chartData = buildResultDistribution(analyses);
+  const { t } = useTranslation(["statistics", "analysis"]);
+  const chartData = buildResultDistribution(analyses, {
+    true: t("analysis:resultValues.true"),
+    false: t("analysis:resultValues.false"),
+    unknown: t("analysis:resultValues.unknown"),
+  });
 
   return (
     <ChartCard
-      title="Result Distribution"
-      description="No. of analyses per result"
+      title={t("statistics:charts.resultDistribution.title")}
+      description={t("statistics:charts.resultDistribution.description")}
     >
       {chartData.length === 0 ? (
         <div className="flex h-full min-h-[240px] items-center justify-center text-sm text-gray-400">
-          No data available.
+          {t("statistics:empty")}
         </div>
       ) : (
         <PieChart

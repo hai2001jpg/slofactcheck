@@ -1,0 +1,24 @@
+{
+  "app": {
+    "name": "SloFactCheck",
+    "shortName": "SFC"
+  },
+  "aria": {
+    "close": "Close dialog"
+  },
+  "status": {
+    "loadingData": "Loading data...",
+    "loadingStatistics": "Loading statistics..."
+  },
+  "fallback": {
+    "notAvailable": "N/A",
+    "guest": "Guest"
+  },
+  "errors": {
+    "unknown": "Unknown error",
+    "fetchAnalyses": "Failed to fetch analyses.",
+    "server": "Server error",
+    "factCheckSearch": "Fact check search failed",
+    "analyzeFailed": "Failed to analyze: {{message}}"
+  }
+}

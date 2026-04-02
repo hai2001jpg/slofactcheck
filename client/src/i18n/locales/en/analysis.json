@@ -1,0 +1,36 @@
+{
+  "labels": {
+    "input": "Input",
+    "result": "Result",
+    "confidence": "Confidence",
+    "category": "Category",
+    "model": "Model",
+    "created": "Created"
+  },
+  "resultValues": {
+    "true": "True",
+    "false": "False",
+    "unknown": "Unknown"
+  },
+  "topicValues": {
+    "politics": "Politics",
+    "health": "Health",
+    "sport": "Sport",
+    "culture": "Culture",
+    "others": "Others"
+  },
+  "loadingMessages": [
+    "Loading models...",
+    "Contacting the server...",
+    "Analyzing text...",
+    "Fetching fact checks..."
+  ],
+  "factChecks": {
+    "empty": "No source was found.",
+    "title": "List of fact checks:",
+    "unknownSource": "Unknown source",
+    "untitled": "Untitled fact-check",
+    "unknownRating": "Unknown rating",
+    "launchAlt": "Open fact-check source"
+  }
+}

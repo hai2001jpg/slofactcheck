@@ -1,0 +1,51 @@
+{
+  "hero": {
+    "title": "SloFactCheck - your AI buddy for disinformation detection",
+    "description": "Powered by multilingual NLP models, SloFactCheck helps you quickly spot false information in news articles, social media posts, and other online content.",
+    "cta": "Get Started",
+    "previewAlt": "App Preview"
+  },
+  "about": {
+    "title": "What is SloFactCheck",
+    "description": "SloFactCheck is a platform for multilingual automatic detection of disinformation. We're on a mission to combat misinformation and help people make informed decisions based on verified, accurate information.",
+    "featuresTitle": "Features",
+    "features": [
+      {
+        "title": "AI-Powered Detection",
+        "description": "Advanced machine learning algorithms analyze content patterns to identify potential misinformation with high accuracy."
+      },
+      {
+        "title": "Natural Language Processing",
+        "description": "Utilizes state-of-the-art NLP models like mBERT, mT5, and XLM-RoBERTa to understand and analyze text in various languages."
+      },
+      {
+        "title": "Multilingual Support",
+        "description": "Supports multiple languages, making it accessible to a global audience and effective in diverse linguistic contexts."
+      },
+      {
+        "title": "Avg. accuracy rate 95%",
+        "description": "Achieves a high accuracy rate of 95% in identifying false information, ensuring reliable verification results."
+      },
+      {
+        "title": "Fast Processing",
+        "description": "Delivers quick results, allowing users to verify information in real-time and make informed decisions promptly."
+      },
+      {
+        "title": "User-Friendly Interface",
+        "description": "Intuitive design ensures users can easily navigate the platform and access verification tools without technical expertise."
+      }
+    ]
+  },
+  "contact": {
+    "sectionLabel": "Contact",
+    "title": "Let us know how we can help",
+    "description": "We're here to help and answer any question you might have. We look forward to hearing from you! Please fill out the form, or use the contact information below.",
+    "address": "Nemcovej 32, Kosice, Slovak Republic",
+    "fields": {
+      "email": "Your e-mail",
+      "subject": "Subject",
+      "message": "Message"
+    },
+    "submit": "Send Message"
+  }
+}

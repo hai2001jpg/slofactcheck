@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import i18n from "@/i18n";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export function useFetchAnalyses(user) {
@@ -22,7 +24,7 @@ export function useFetchAnalyses(user) {
         setError("");
         try {
             const response = await fetch(`${BASE_URL}/analysis?userId=${user.uid}`);
-            if (!response.ok) throw new Error("Failed to fetch analyses.");
+            if (!response.ok) throw new Error(i18n.t("common:errors.fetchAnalyses"));
             const data = await response.json();
             setAnalyses(data.analyses || []);
             setTotalFactChecks(data.analyses.length);
@@ -41,7 +43,7 @@ export function useFetchAnalyses(user) {
             setAvgConfidence(0);
             setRemainingAnalysesToday(null);
             setDailyAnalysisLimit(null);
-            setError(err.message || "Unknown error");
+            setError(err.message || i18n.t("common:errors.unknown"));
         } finally {
             setLoading(false);
         }

@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import i18n from "@/i18n";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const MODEL_MAP = {
@@ -30,7 +32,7 @@ export function useAnalyzeText() {
 
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data?.error || "Server error");
+        throw new Error(data?.error || i18n.t("common:errors.server"));
       }
 
       let factCheckResults = [];
@@ -41,11 +43,11 @@ export function useAnalyzeText() {
         );
         const factCheckData = await factCheckResponse.json();
         if (!factCheckResponse.ok) {
-          throw new Error(factCheckData?.error || "Fact check search failed");
+          throw new Error(factCheckData?.error || i18n.t("common:errors.factCheckSearch"));
         }
         factCheckResults = factCheckData.results || [];
       } catch (factErr) {
-        factCheckError = factErr?.message || "Fact check search failed";
+        factCheckError = factErr?.message || i18n.t("common:errors.factCheckSearch");
       }
 
       return {
@@ -60,7 +62,7 @@ export function useAnalyzeText() {
         dailyLimit: data.dailyLimit ?? null,
       };
     } catch (err) {
-      setError(`Failed to analyze: ${err.message}`);
+      setError(i18n.t("common:errors.analyzeFailed", { message: err.message }));
       return null;
     } finally {
       setLoading(false);

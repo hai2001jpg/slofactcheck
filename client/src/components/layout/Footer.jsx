@@ -3,8 +3,11 @@ import Carousel from "../ui/Carousel";
 import FEI_logo from "@/assets/img/FEI_logo.png";
 import KPS_logo from "@/assets/img/logo_kps_bez_pozadia.png";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation(["layout", "common"]);
+
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
@@ -16,14 +19,14 @@ const Footer = () => {
         <footer className="w-full bg-black border-t border-gray-600 px-4 sm:px-8 md:px-16 lg:px-32 py-6 flex flex-col items-center gap-6">
             <Link to="/">
                 <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-white font-spaceGrotesk text-center fade-in">
-                    SloFactCheck
+                    {t("common:app.name")}
                 </h1>
             </Link>
             <div className="w-full flex flex-col md:flex-row justify-center items-center gap-2 md:gap-8">
                 <nav className="flex flex-row md:flex-col flex-wrap justify-center text-white text-lg sm:text-xl bebas-neue gap-4 md:gap-2 flex-shrink-0 fade-in">
-                    <h3 onClick={() => scrollToSection('home')} className="cursor-pointer hover:text-gray-300 transition">Home</h3>
-                    <h3 onClick={() => scrollToSection('about')} className="cursor-pointer hover:text-gray-300 transition">About SFC</h3>
-                    <h3 onClick={() => scrollToSection('contact')} className="cursor-pointer hover:text-gray-300 transition">Contact</h3>
+                    <h3 onClick={() => scrollToSection('home')} className="cursor-pointer hover:text-gray-300 transition">{t("layout:nav.home")}</h3>
+                    <h3 onClick={() => scrollToSection('about')} className="cursor-pointer hover:text-gray-300 transition">{t("layout:nav.about")}</h3>
+                    <h3 onClick={() => scrollToSection('contact')} className="cursor-pointer hover:text-gray-300 transition">{t("layout:nav.contact")}</h3>
                 </nav>
                 <div className="flex flex-row flex-wrap justify-center gap-4 sm:gap-6 fade-in mt-4 md:mt-0">
                     <a href="https://kemt.fei.tuke.sk/" target="_blank" rel="noopener noreferrer"
@@ -52,23 +55,23 @@ const Footer = () => {
                     </a>
                 </div>
                 <div className="flex flex-col gap-2 items-center fade-in mt-4 md:mt-0">
-                    <span className="montserrat font-light text-gray-400 fade-in-hidden">In collaboration with</span>
+                    <span className="montserrat font-light text-gray-400 fade-in-hidden">{t("layout:footer.inCollaborationWith")}</span>
                     <div className="flex flex-row items-center justify-center gap-4 fade-in-hidden h-12 ">
                         <div className="h-full w-16 flex items-center justify-center">
-                            <img src={FEI_logo} title="Fakulta eletrotechniky a informatiky TUKE" className="h-full w-full object-contain flex-shrink-0" loading="lazy"/>
+                            <img src={FEI_logo} title={t("layout:footer.feiLogoTitle")} className="h-full w-full object-contain flex-shrink-0" loading="lazy"/>
                         </div>
                         <div className="h-full w-16 flex items-center justify-center">
-                            <img src={KPS_logo} title="Katedra počítačových sietí" className="h-full w-full object-contain flex-shrink-0" loading="lazy"/>
+                            <img src={KPS_logo} title={t("layout:footer.kpsLogoTitle")} className="h-full w-full object-contain flex-shrink-0" loading="lazy"/>
                         </div>
                     </div>
                 </div>
             </div>
 
         <div className="md:w-2/5 lg:w-3/5 w-4/5 h-px bg-gray-700 mx-auto line-expand"></div>
-        <span className="montserrat font-light text-gray-400 text-sm fade-in-hidden fade-in">Created with</span>
+        <span className="montserrat font-light text-gray-400 text-sm fade-in-hidden fade-in">{t("layout:footer.createdWith")}</span>
         <Carousel speed={100} />
         <p className="text-white text-[14px] sm:text-sm montserrat text-center fade-in">
-            &copy; 2025 Hai Tran Ngoc | All rights reserved.
+            {t("layout:footer.copyright")}
         </p>
     </footer>
   );

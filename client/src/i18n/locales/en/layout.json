@@ -1,0 +1,30 @@
+{
+  "languageSwitcher": {
+    "label": "Switch language"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About SFC",
+    "contact": "Contact",
+    "userPanel": "User Panel",
+    "history": "History",
+    "statistics": "Statistics",
+    "login": "Log In",
+    "signup": "Sign Up",
+    "logout": "Log Out",
+    "loggingOut": "Logging out...",
+    "refreshingSession": "Refreshing session...",
+    "toggleMenu": "Toggle menu",
+    "homeAria": "Home"
+  },
+  "sidebar": {
+    "avatarAlt": "{{name}}'s avatar"
+  },
+  "footer": {
+    "inCollaborationWith": "In collaboration with",
+    "createdWith": "Created with",
+    "feiLogoTitle": "Faculty of Electrical Engineering and Informatics, TUKE",
+    "kpsLogoTitle": "Department of Computers and Informatics",
+    "copyright": "© 2025 Hai Tran Ngoc | All rights reserved."
+  }
+}

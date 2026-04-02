@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import AnalysisModal from "@/components/ui/AnalysisModal";
+import { getResultLabel, getTopicLabel } from "@/lib/analysisLabels";
 import { analysisShape } from "@/lib/propTypes";
 
 const HistoryList = ({
@@ -11,20 +13,21 @@ const HistoryList = ({
         currentPage,
         setCurrentPage
     }) => {
+    const { t } = useTranslation(["analysis", "common", "history"]);
     const [modalAnalysis, setModalAnalysis] = useState(null);
 
     return (
         <div className="w-full flex justify-center items-center max-w-6xl overflow-x-none mt-4 flex-1">
-            <div className="flex flex-col w-[95%] min-w-[340px] sm:min-w-[500px] md:min-w-[600px] lg:min-w-[700px] 
+            <div className="flex flex-col w-[95%] min-w-[400px] sm:min-w-[500px] md:min-w-[600px] lg:min-w-[700px] 
                     montserrat  min-h-[65vh] gap-2">
                 {/* header*/}
                 {analyses.length > 0 && (
                     <div className="grid grid-cols-2 sm:grid-cols-[minmax(0,1fr)_90px_90px_120px] gap-4 sm:gap-6 px-2
                              text-gray-400 text-sm sm:text-md">
-                        <div>Input</div>
-                        <div className="text-center">Result</div>
-                        <div className="hidden sm:block text-center">Confidence</div>
-                        <div className="hidden sm:block text-center">Model</div>
+                        <div>{t("history:table.input")}</div>
+                        <div className="text-center">{t("history:table.result")}</div>
+                        <div className="hidden sm:block text-center">{t("history:table.confidence")}</div>
+                        <div className="hidden sm:block text-center">{t("history:table.model")}</div>
                     </div>
                 )}
                 {/* list of analyses */}
@@ -37,11 +40,14 @@ const HistoryList = ({
                             onClick={() => setModalAnalysis(a)}>
                             <div className="min-w-0 flex flex-col gap-1">
                                 <div className="truncate max-w-full" title={a.input}>{a.input}</div>
-                                <div className="truncate max-w-full text-xs text-gray-400" title={a.topic || "N/A"}>
-                                    Category: {a.topic || "N/A"}
+                                <div
+                                    className="truncate max-w-full text-xs text-gray-400"
+                                    title={getTopicLabel(a.topic, t, t("common:fallback.notAvailable"))}
+                                >
+                                    {t("history:table.category")}: {getTopicLabel(a.topic, t, t("common:fallback.notAvailable"))}
                                 </div>
                             </div>
-                            <div className={`text-center font-bold ${String(a.result) === "false" ? "text-red-500" : "text-blue-500"}`}>{String(a.result).charAt(0).toUpperCase() + String(a.result).slice(1)}</div>
+                            <div className={`text-center font-bold ${String(a.result) === "false" ? "text-red-500" : "text-blue-500"}`}>{getResultLabel(a.result, t)}</div>
                             <div className="hidden sm:block text-center font-bold">{(Math.round(Number(a.confidence) * 10000) / 100).toFixed(2)}%</div>
                             <div className="hidden sm:block text-center font-bold text-nowrap">{modelDisplayMap[a.model] || a.model}</div>
                         </div>

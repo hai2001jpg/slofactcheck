@@ -1,0 +1,30 @@
+{
+  "languageSwitcher": {
+    "label": "Prepnúť jazyk"
+  },
+  "nav": {
+    "home": "Domov",
+    "about": "O SFC",
+    "contact": "Kontakt",
+    "userPanel": "Užívateľský panel",
+    "history": "História",
+    "statistics": "Štatistika",
+    "login": "Prihlásiť sa",
+    "signup": "Registrovať sa",
+    "logout": "Odhlásiť sa",
+    "loggingOut": "Odhlasujem...",
+    "refreshingSession": "Obnovujem reláciu...",
+    "toggleMenu": "Otvoriť menu",
+    "homeAria": "Domov"
+  },
+  "sidebar": {
+    "avatarAlt": "Avatar používateľa {{name}}"
+  },
+  "footer": {
+    "inCollaborationWith": "V spolupráci s",
+    "createdWith": "Vytvorené pomocou",
+    "feiLogoTitle": "Fakulta elektrotechniky a informatiky TUKE",
+    "kpsLogoTitle": "Katedra počítačov a informatiky",
+    "copyright": "© 2025 Hai Tran Ngoc | Všetky práva vyhradené."
+  }
+}

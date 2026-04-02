@@ -1,0 +1,22 @@
+{
+  "title": "Štatistika",
+  "empty": "Nie sú k dispozícii žiadne dáta.",
+  "charts": {
+    "trend": {
+      "title": "Denný trend aktivity",
+      "description": "Počet dokončených analýz za deň",
+      "empty": "Nie sú dostupné údaje o dátume.",
+      "seriesLabel": "Analýzy"
+    },
+    "resultDistribution": {
+      "title": "Rozdelenie analýz podľa výsledku",
+      "description": "Počet analýz podľa výsledku"
+    },
+    "categoryDistribution": {
+      "title": "Rozdelenie analýz podľa kategórií",
+      "description": "Počet analýz podľa kategórie",
+      "seriesLabel": "Počet analýz",
+      "otherCategory": "Ostatné"
+    }
+  }
+}

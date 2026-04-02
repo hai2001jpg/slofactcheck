@@ -1,0 +1,24 @@
+{
+  "title": "Užívateľský panel",
+  "stats": {
+    "totalFactChecks": "Celkový počet analýz",
+    "totalDisinformation": "Celkový počet dezinformácií",
+    "avgConfidence": "Priemerná pravdepodobnosť"
+  },
+  "result": {
+    "evaluatedBy": "Vyhodnotené modelom",
+    "educationalNotice": "Nástroj slúži len na vzdelávacie účely. Informácie si vždy overte z viacerých dôveryhodných zdrojov.",
+    "startNewAnalysis": "Spustiť novú analýzu"
+  },
+  "analysisForm": {
+    "titlePrefix": "Detekcia",
+    "titleSuffix": "dezinformácií",
+    "dailyLimit": "Denný limit:",
+    "selectModel": "Vyberte model:",
+    "recommended": "odporúčané",
+    "notRecommended": "neodporúčané",
+    "placeholder": "Zadajte text na analýzu...",
+    "startAnalysis": "Spustiť analýzu",
+    "limitReached": "Dosiahli ste denný limit."
+  }
+}

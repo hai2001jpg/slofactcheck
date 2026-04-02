@@ -1,0 +1,36 @@
+{
+  "labels": {
+    "input": "Vstup",
+    "result": "Výsledok",
+    "confidence": "Pravdepodobnosť",
+    "category": "Kategória",
+    "model": "Model",
+    "created": "Vytvorené"
+  },
+  "resultValues": {
+    "true": "Pravda",
+    "false": "Nepravda",
+    "unknown": "Neznáme"
+  },
+  "topicValues": {
+    "politics": "politika",
+    "health": "zdravie",
+    "sport": "šport",
+    "culture": "kultúra",
+    "others": "ostatné"
+  },
+  "loadingMessages": [
+    "Načítavam modely...",
+    "Kontaktujem server...",
+    "Analyzujem text...",
+    "Vyhľadávam fact-checky..."
+  ],
+  "factChecks": {
+    "empty": "Nenašiel sa žiadny zdroj.",
+    "title": "Zoznam fact-checkov:",
+    "unknownSource": "Neznámy zdroj",
+    "untitled": "Fact-check bez názvu",
+    "unknownRating": "Neznáme hodnotenie",
+    "launchAlt": "Otvoriť fact-check zdroj"
+  }
+}

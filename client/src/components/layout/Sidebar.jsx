@@ -1,9 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import { useAuth } from "@/hooks/useAuth";
 
 const Sidebar = () => {
+    const { t } = useTranslation(["layout", "common"]);
     const { user, logout } = useAuth();
-    const userName = user?.displayName ?? "Guest";
+    const userName = user?.displayName ?? t("common:fallback.guest");
     const avatarUrl = user?.photoURL ?? "";
     // helper for getting initials
     const getInitials = (name) => name.split(' ').map(n => n[0]).join('');
@@ -20,10 +23,10 @@ const Sidebar = () => {
     return (
         <div className="bg-[#111111] flex flex-col items-center min-h-full w-1/8 py-8 gap-4 shadow-lg">
             <span className="block xl:hidden">
-                <h1 className="text-2xl font-bold text-white space-grotesk">SFC</h1>
+                <h1 className="text-2xl font-bold text-white space-grotesk">{t("common:app.shortName")}</h1>
             </span>
             <span className="hidden xl:block">
-                <h1 className="text-2xl font-bold text-white space-grotesk">SloFactCheck</h1>
+                <h1 className="text-2xl font-bold text-white space-grotesk">{t("common:app.name")}</h1>
             </span>
             <div className="flex flex-col gap-8 w-full px-4 flex-grow">
                 <div className="flex flex-col items-center gap-2">
@@ -31,7 +34,7 @@ const Sidebar = () => {
                         {avatarUrl ? (
                             <img
                                 src={avatarUrl}
-                                alt={`${userName}'s avatar`}
+                                alt={t("layout:sidebar.avatarAlt", { name: userName })}
                                 className="h-12 w-12 rounded-full object-cover"
                                 referrerPolicy="no-referrer"
                             />
@@ -57,7 +60,7 @@ const Sidebar = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" className="bi bi-house flex-shrink-0" viewBox="0 0 16 16">
                                 <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
                             </svg>
-                            <span className="hidden lg:inline">Home</span>
+                            <span className="hidden lg:inline">{t("layout:nav.home")}</span>
                         </div>
                     </Link>
                     <Link
@@ -68,7 +71,7 @@ const Sidebar = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" className="bi bi-columns flex-shrink-0" viewBox="0 0 16 16">
                                 <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm8.5 0v8H15V2zm0 9v3H15v-3zm-1-9H1v3h6.5zM1 14h6.5V6H1z"/>
                             </svg>
-                            <span className="hidden lg:inline">User Panel</span>
+                            <span className="hidden lg:inline">{t("layout:nav.userPanel")}</span>
                         </div>
                     </Link>
                     <Link
@@ -81,7 +84,7 @@ const Sidebar = () => {
                                 <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z"/>
                                 <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5"/>
                             </svg>
-                            <span className="hidden lg:inline">History</span>
+                            <span className="hidden lg:inline">{t("layout:nav.history")}</span>
                         </div>
                     </Link>
                     <Link
@@ -92,11 +95,12 @@ const Sidebar = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" className="bi bi-bar-chart flex-shrink-0" viewBox="0 0 16 16">
                                 <path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>
                             </svg>
-                            <span className="hidden lg:inline">Statistics</span>
+                            <span className="hidden lg:inline">{t("layout:nav.statistics")}</span>
                         </div>
                     </Link>
                 </div>
             </div>
+            <LanguageSwitcher className="scale-90" />
             <button
                 className="flex flex-row items-center w-full self-start justify-center lg:justify-start pt-4 px-4 gap-4 text-red-500 hover:text-red-700 transition duration-300 cursor-pointer border-t border-[#333333]"
                 onClick={handleLogout}
@@ -105,9 +109,9 @@ const Sidebar = () => {
                     <path fill="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
                     <path fill="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
                 </svg>
-                <span className="hidden lg:inline">Log Out</span>
+                <span className="hidden lg:inline">{t("layout:nav.logout")}</span>
             </button>
-            </div>
+        </div>
     )
 }
 

@@ -1,0 +1,24 @@
+{
+  "title": "User Panel",
+  "stats": {
+    "totalFactChecks": "Total Fact Checks",
+    "totalDisinformation": "Total Disinformation Detected",
+    "avgConfidence": "Avg. Confidence"
+  },
+  "result": {
+    "evaluatedBy": "Evaluated by",
+    "educationalNotice": "Educational tool only. Always verify information through multiple credible sources.",
+    "startNewAnalysis": "Start new analysis"
+  },
+  "analysisForm": {
+    "titlePrefix": "Disinformation",
+    "titleSuffix": "detection",
+    "dailyLimit": "Daily Limit:",
+    "selectModel": "Select model:",
+    "recommended": "recommended",
+    "notRecommended": "not recommended",
+    "placeholder": "Enter text to analyze...",
+    "startAnalysis": "Start analysis",
+    "limitReached": "You have reached your daily analysis limit."
+  }
+}

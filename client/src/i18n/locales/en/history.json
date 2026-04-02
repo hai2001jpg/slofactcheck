@@ -1,0 +1,12 @@
+{
+  "title": "History",
+  "empty": "No analysis found.",
+  "startNewAnalysis": "Start new analysis",
+  "table": {
+    "input": "Input",
+    "result": "Result",
+    "confidence": "Confidence",
+    "model": "Model",
+    "category": "Category"
+  }
+}

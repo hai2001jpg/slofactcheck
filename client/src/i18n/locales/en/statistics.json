@@ -1,0 +1,22 @@
+{
+  "title": "Statistics",
+  "empty": "No data available.",
+  "charts": {
+    "trend": {
+      "title": "Daily Activity Trend",
+      "description": "No. of analyses completed each day",
+      "empty": "No date data available.",
+      "seriesLabel": "Analyses"
+    },
+    "resultDistribution": {
+      "title": "Result Distribution",
+      "description": "No. of analyses per result"
+    },
+    "categoryDistribution": {
+      "title": "Category Distribution",
+      "description": "No. of analyses per category",
+      "seriesLabel": "No. of analyses",
+      "otherCategory": "Others"
+    }
+  }
+}

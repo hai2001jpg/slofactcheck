@@ -1,4 +1,5 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 import Sidebar from "@/components/layout/Sidebar";
 import { useAuth } from "@/hooks/useAuth";
@@ -26,6 +27,7 @@ const chartTheme = createTheme({
 });
 
 const Statistics = () => {
+    const { t } = useTranslation(["statistics", "common"]);
     const { user } = useAuth();
     const { analyses, loading, error } = useFetchAnalyses(user);
 
@@ -35,12 +37,12 @@ const Statistics = () => {
             <div className="bg-2 flex flex-col items-center min-h-full w-full lg:w-7/8 bg-[#1B1B1B] py-4 lg:py-8 gap-4 lg:gap-8">
                 <div className="self-start ml-4 lg:ml-16 gap-2 lg:gap-4 flex flex-col w-full">
                     <h1 className="text-3xl lg:text-5xl text-white montserrat font-bold">
-                        Statistics
+                        {t("statistics:title")}
                     </h1>
                 </div>
                 {loading && (
                     <div className="text-white text-xl sm:text-2xl montserrat font-semibold">
-                        Loading statistics...
+                        {t("common:status.loadingStatistics")}
                     </div>
                 )}
                 {error && (
@@ -50,7 +52,7 @@ const Statistics = () => {
                 )}
                 {!loading && !error && analyses.length === 0 && (
                     <div className="rounded-2xl border border-white/10 bg-[#111111] px-6 py-10 text-center text-gray-400 montserrat">
-                        No data available.
+                        {t("statistics:empty")}
                     </div>
                 )}
                 {!loading && !error && analyses.length > 0 && (

@@ -1,0 +1,51 @@
+{
+  "hero": {
+    "title": "SloFactCheck - tvoj AI pomocník na detekciu dezinformácií",
+    "description": "SloFactCheck využíva viacjazyčné NLP modely a pomáha rýchlo odhaliť nepravdivé informácie v spravodajských článkoch, príspevkoch na sociálnych sieťach alebo inom online obsahu.",
+    "cta": "Začať",
+    "previewAlt": "Náhľad aplikácie"
+  },
+  "about": {
+    "title": "Čo je to SloFactCheck",
+    "description": "SloFactCheck je platforma na viacjazyčnú automatickú detekciu dezinformácií. Jej úlohou je bojovať proti zavádzajúcim informáciám a pomáhať ľuďom rozhodovať sa na základe overených zdrojov.",
+    "featuresTitle": "Funkcie",
+    "features": [
+      {
+        "title": "Detekcia pomocou AI",
+        "description": "Pokročilé algoritmy strojového učenia analyzujú vzory v texte a s vysokou presnosťou identifikujú potenciálne dezinformácie."
+      },
+      {
+        "title": "Spracovanie prirodzeného jazyka",
+        "description": "Využíva moderné NLP modely ako mBERT, mT5 a XLM-RoBERTa na analýzu textu vo viacerých jazykoch."
+      },
+      {
+        "title": "Viacjazyčná podpora",
+        "description": "Podporuje viacero jazykov, vďaka čomu je dostupný širšiemu publiku a použiteľný v rôznych jazykových kontextoch."
+      },
+      {
+        "title": "Priemerná presnosť 95 %",
+        "description": "Dosahuje 95 % presnosť pri identifikácii nepravdivých informácií a poskytuje spoľahlivé výsledky."
+      },
+      {
+        "title": "Rýchle spracovanie",
+        "description": "Poskytuje rýchle výsledky, aby si používatelia mohli overovať informácie v reálnom čase."
+      },
+      {
+        "title": "Užívateľsky prívetivé rozhranie",
+        "description": "Intuitívny dizajn umožňuje jednoduchú navigáciu a používanie overovacích nástrojov aj bez technických znalostí."
+      }
+    ]
+  },
+  "contact": {
+    "sectionLabel": "Kontakt",
+    "title": "Máte otázky? Kontaktujte nás!",
+    "description": "Radi ti pomôžeme a odpovieme na tvoje otázky. Tešíme sa na tvoju správu! Vyplň formulár alebo použi kontaktné údaje nižšie.",
+    "address": "Němcovej 32, Košice, Slovenská republika",
+    "fields": {
+      "email": "Tvoj e-mail",
+      "subject": "Predmet",
+      "message": "Správa"
+    },
+    "submit": "Odoslať správu"
+  }
+}

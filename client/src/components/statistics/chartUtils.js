@@ -18,8 +18,8 @@ function parseCreatedAt(createdAt) {
 }
 
 
-function formatDayLabel(date) {
-  return date.toLocaleDateString("sk-SK", {
+function formatDayLabel(date, locale) {
+  return date.toLocaleDateString(locale, {
     day: "2-digit",
     month: "2-digit",
   });
@@ -32,7 +32,10 @@ function formatLocalDayKey(date) {
   return `${year}-${month}-${day}`;
 }
 
-export function buildResultDistribution(analyses) {
+export function buildResultDistribution(
+  analyses,
+  resultLabels = { true: "True", false: "False", unknown: "Unknown" }
+) {
   const counts = {
     true: 0,
     false: 0,
@@ -53,18 +56,19 @@ export function buildResultDistribution(analyses) {
   });
 
   return [
-    { id: "true", label: "True", value: counts.true, color: "#2b7fff" },
-    { id: "false", label: "False", value: counts.false, color: "#fb2c36" },
-    { id: "unknown", label: "Unknown", value: counts.unknown, color: "#94a3b8" },
+    { id: "true", label: resultLabels.true, value: counts.true, color: "#2b7fff" },
+    { id: "false", label: resultLabels.false, value: counts.false, color: "#fb2c36" },
+    { id: "unknown", label: resultLabels.unknown, value: counts.unknown, color: "#94a3b8" },
   ].filter((item) => item.value > 0);
 }
 
 
-export function buildCategoryChart(analyses) {
+export function buildCategoryChart(analyses, topicLabels = {}, fallbackTopic = "others") {
   const topicCounts = new Map();
 
   analyses.forEach((analysis) => {
-    const topic = analysis.topic || "others";
+    const topicKey = String(analysis.topic || fallbackTopic).toLowerCase();
+    const topic = topicLabels[topicKey] || analysis.topic || fallbackTopic;
     topicCounts.set(topic, (topicCounts.get(topic) || 0) + 1);
   });
 
@@ -77,7 +81,7 @@ export function buildCategoryChart(analyses) {
 }
 
 
-export function buildDailyTrend(analyses) {
+export function buildDailyTrend(analyses, locale = "en-US") {
   const dailyCounts = new Map();
 
   analyses.forEach((analysis) => {
@@ -96,7 +100,7 @@ export function buildDailyTrend(analyses) {
       const date = new Date(`${dayKey}T00:00:00`);
       return {
         dayKey,
-        label: Number.isNaN(date.getTime()) ? dayKey : formatDayLabel(date),
+        label: Number.isNaN(date.getTime()) ? dayKey : formatDayLabel(date, locale),
         count,
       };
     });

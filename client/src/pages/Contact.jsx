@@ -1,19 +1,19 @@
 import LazySvg from "@/components/ui/LazySVG";
 import useFadeIn from "@/hooks/useFadeIn";
+import { useTranslation } from "react-i18next";
 
 const Contact = () => {
+    const { t } = useTranslation("home");
     useFadeIn(0.1);
 
     return (
         <div id="contact" className="w-full flex flex-col items-center mt-8 mb-4 bg-[linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.95)_10%,rgba(0,0,0,0.95)_90%,transparent_100%)]">
             <div className="w-full max-w-7xl px-4 sm:px-8 md:px-16 lg:px-32 flex flex-col md:flex-row justify-evenly gap-8 md:gap-0">
                 <div className="flex flex-col gap-4 md:max-w-[50%] w-full">
-                    <h5 className="montserrat text-xl text-blue-500 font-bold fade-in-hidden">Contact</h5>
-                    <h1 className="montserrat text-5xl text-white font-bold fade-in-hidden">Let us know how we can help</h1>
+                    <h5 className="montserrat text-xl text-blue-500 font-bold fade-in-hidden">{t("contact.sectionLabel")}</h5>
+                    <h1 className="montserrat text-5xl text-white font-bold fade-in-hidden">{t("contact.title")}</h1>
                     <p className="inter-font text-white text-lg text-balance fade-in-hidden">
-                        We're here to help and answer any question you might have. 
-                        We look forward to hearing from you! 
-                        Please fill out the form, or use the contact information below.
+                        {t("contact.description")}
                     </p>
                     <div className="text-white flex flex-row gap-2 items-center fade-in-hidden">
                         <LazySvg>
@@ -38,27 +38,27 @@ const Contact = () => {
                             <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                             </svg>
                         </LazySvg>
-                        <span className="inter-font">Němcovej 32, Košice, Slovenská Republika</span>
+                        <span className="inter-font">{t("contact.address")}</span>
                     </div>
                 </div>
                 <form className="flex flex-col w-full md:w-[50%] py-4 mt-5 gap-4 items-center">
                     <div className="w-full sm:w-96 flex flex-col gap-1 fade-in-hidden">
                         <label htmlFor="email" className="text-gray-400 text-sm montserrat">
-                            Your e-mail
+                            {t("contact.fields.email")}
                         </label>
                         <input id="email" type="email" className="text-white p-3 rounded-lg border border-gray-300 
                         bg-transparent w-full focus:outline-none focus:border-blue-500 transition"/>
                     </div>
                     <div className="w-full sm:w-96 flex flex-col gap-1 fade-in-hidden">
                         <label htmlFor="subject" className="text-gray-400 text-sm montserrat">
-                            Subject
+                            {t("contact.fields.subject")}
                         </label>
                         <input id="subject" type="text" className="text-white p-3 rounded-lg border border-gray-300 
                         bg-transparent w-full focus:outline-none focus:border-blue-500 transition"/>
                     </div>
                     <div className="w-full sm:w-96 flex flex-col gap-1 fade-in-hidden">
                         <label htmlFor="message" className="text-gray-400 text-sm montserrat">
-                            Message
+                            {t("contact.fields.message")}
                         </label>
                         <textarea id="message" rows="4" className="text-white p-3 rounded-lg border border-gray-300 
                         bg-transparent w-full focus:outline-none focus:border-blue-500 transition"></textarea>
@@ -68,7 +68,7 @@ const Contact = () => {
                         className="text-white bg-blue-600 w-full sm:w-96 py-3 px-6 mt-2 rounded-full 
                         flex justify-center items-center gap-2 transition duration-300 hover:bg-blue-700 
                         fade-in-hidden cursor-pointer">
-                        <span className="inter-font">Send Message</span>
+                        <span className="inter-font">{t("contact.submit")}</span>
                         <LazySvg>
                         <svg xmlns="http://www.w3.org/2000/svg" width="1vw" height="1vw" fill="white" className="bi bi-send" viewBox="0 0 16 16">
                             <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />

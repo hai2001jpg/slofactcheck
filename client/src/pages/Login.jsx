@@ -1,8 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import { useAuth } from "@/hooks/useAuth";
 
 const Login = () => {
+  const { t } = useTranslation("auth");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { loginWithGoogle, user, loading } = useAuth();
@@ -18,30 +22,34 @@ const Login = () => {
     try {
       await loginWithGoogle();
     } catch (err) {
-      setError(err?.message ?? "Unable to authenticate with Google.");
+      setError(err?.message ?? t("errors.googleAuth"));
     }
   };
+
   return (
     <div className="bg h-screen flex justify-center items-center">
-      <div className="py-10 px-12 bg-[#1B1B1B] flex rounded-lg flex-col items-center gap-6 shadow-lg montserrat gradient-border">
+      <div className="absolute right-4 top-4 sm:right-8 sm:top-8">
+        <LanguageSwitcher />
+      </div>
+      <div className="py-10 px-12 bg-[#1B1B1B] min-w-1/4 flex rounded-lg flex-col items-center gap-6 shadow-lg montserrat gradient-border">
         <Link to="/">
             <button className="border border-white/40 py-3 px-8 bg-white/10 hover:bg-white/40 transition duration-300 
             cursor-pointer text-white flex flex-row items-center justify-center gap-2">
-                Return Home 
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                {t("login.returnHome")}
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">
+                  <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
                 </svg>
             </button>
         </Link>
         <div className="flex flex-col gap-4 text-center">
-            <h1 className="text-white text-5xl montserrat font-bold text-nowrap">Welcome back!</h1>  
-            <p className="text-white text-sm montserrat text-nowrap">Sign in to continue to your dashboard</p>
+            <h1 className="text-white text-5xl montserrat font-bold text-nowrap">{t("login.title")}</h1>
+            <p className="text-white text-sm montserrat text-nowrap">{t("login.subtitle")}</p>
         </div>
         <div className="w-full h-px bg-gray-700 mx-auto"></div>
         <div className="flex flex-col gap-4 items-center w-[90%]">
           <button
             className="text-white py-3 px-6 cursor-pointer border border-white/40 rounded-md flex flex-row justify-center items-center 
-            font-normal w-full gap-2 hover:bg-white/10 transition duration-300"
+            font-normal w-full gap-2 hover:bg-white/10 transition duration-300 text-nowrap"
             onClick={handleGoogleAuth}
             disabled={loading}
           >
@@ -72,14 +80,14 @@ const Login = () => {
                    l6.19,5.238C36.971,39.205,44,34,44,24
                    C44,22.659,43.862,21.35,43.611,20.083z"></path>
             </svg>
-            Login with Google
+            {t("login.loginWithGoogle")}
           </button>
 
-          <span className="text-white">or</span>
+          <span className="text-white">{t("login.divider")}</span>
 
           <button
             className="text-white py-3 px-6 cursor-pointer border border-white/40 rounded-md flex flex-row justify-center items-center 
-            font-normal w-full gap-2 hover:bg-white/10 transition duration-300"
+            font-normal w-full gap-2 hover:bg-white/10 transition duration-300 text-nowrap"
             onClick={handleGoogleAuth}
             disabled={loading}
           >
@@ -116,7 +124,7 @@ const Login = () => {
                    l6.19,5.238C36.971,39.205,44,34,44,24
                    C44,22.659,43.862,21.35,43.611,20.083z"></path>
             </svg>
-            Signup with Google
+            {t("login.signupWithGoogle")}
           </button>
   </div>
   {error && <div className="text-red-500 mt-2 text-sm">{error}</div>}
