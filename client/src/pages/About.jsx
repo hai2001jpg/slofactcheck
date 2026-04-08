@@ -1,10 +1,27 @@
 import FeatureCard from "@/components/ui/FeatureCard";
 import useFadeIn from "@/hooks/useFadeIn";
 import { useTranslation } from "react-i18next";
+import ML_icon from "@/assets/svg/ML.svg";
+import NLP_icon from "@/assets/svg/NLP.svg";
+import Language_icon from "@/assets/svg/language.svg";
+import Accuracy_icon from "@/assets/svg/accuracy.svg";
+import Speed_icon from "@/assets/svg/speed.svg";
+import UserFriendly_icon from "@/assets/svg/user_friendly.svg";
 
 const About = () => {
     const { t } = useTranslation("home");
     const features = t("about.features", { returnObjects: true });
+    const bentoClasses = [
+        "md:col-span-2 lg:col-span-2 lg:row-span-2",
+        "lg:col-span-2",
+        "lg:col-span-1",
+        "md:col-span-2 lg:col-span-1",
+        "md:col-span-2 lg:col-span-2",
+        "md:col-span-2 lg:col-span-2",
+    ];
+
+    const icons = [ML_icon, NLP_icon, Language_icon, Accuracy_icon, Speed_icon, UserFriendly_icon];
+
     useFadeIn(0.1);
 
     return (
@@ -20,13 +37,15 @@ const About = () => {
             fade-in-hidden">
                 {t("about.featuresTitle")}
             </h2>
-            <div className="grid max-w-[80%] mx-auto gap-4 px-8 sm:px-16 md:px-20 lg:px-40 
-                grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                {Array.isArray(features) && features.map((feature) => (
+            <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-4 px-4 sm:px-6 md:grid-cols-2 md:px-10 lg:auto-rows-[minmax(14rem,_auto)] lg:grid-cols-4 lg:px-16">
+                {Array.isArray(features) && features.map((feature, index) => (
                     <FeatureCard
                         key={feature.title}
                         title={feature.title}
                         description={feature.description}
+                        index={index}
+                        icon={icons[index]}
+                        className={bentoClasses[index] ?? ""}
                     />
                 ))}
             </div>

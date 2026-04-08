@@ -56,15 +56,15 @@ const StatCard = ({ title, value, src}) => {
     return (
         <div className="flex h-full w-full flex-col gap-4 rounded-lg bg-[#111111] p-4 lg:p-6 opacity-80 shadow-lg
         hover:scale-102 transition-transform duration-300 drop-shadow-lg">
-            <div className="flex flex-col md:flex-row gap-4 items-center">
+            <div className="flex w-full flex-col md:flex-row gap-4 items-center">
                 <img src={src} className="w-8 h-8 bg-transparent"/>
-                <h2 className="text-gray-300 montserrat text-sm lg:text-lg">
+                <h2 className="w-full min-w-0 text-center md:text-left text-gray-300 montserrat text-sm lg:text-lg break-words [word-break:normal] [hyphens:auto]">
                     {title}
                 </h2>
              </div>
-            <span className="text-white text-3xl lg:text-5xl space-grotesk font-black mt-auto sm:text-right sm:self-end text-nowrap">
+            <span className="text-white text-3xl lg:text-5xl space-grotesk font-black mt-auto text-center sm:text-right sm:self-end text-nowrap">
                 {displayValue}
-                {showPercent && <span className="text-2xl lg:text-4xl"> %</span>}
+                {showPercent && <span className="text-2xl lg:text-4xl">%</span>}
             </span>
         </div>
     );

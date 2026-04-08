@@ -1,6 +1,8 @@
 {
   "languageSwitcher": {
-    "label": "Prepnúť jazyk"
+    "label": "Prepnúť jazyk",
+    "modalTitle": "Vyberte jazyk",
+    "modalDescription": "Zvoľte jazyk rozhrania."
   },
   "nav": {
     "home": "Domov",
@@ -18,7 +20,7 @@
     "homeAria": "Domov"
   },
   "sidebar": {
-    "avatarAlt": "Avatar používateľa {{name}}"
+    "avatarAlt": "Používateľ {{name}}"
   },
   "footer": {
     "inCollaborationWith": "V spolupráci s",

@@ -133,6 +133,7 @@ const Navbar = () => {
                             <button onClick={() => scrollToSection("home")} className="w-full text-white bebas-neue text-2xl sm:text-lg cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">{t("layout:nav.home")}</button>
                             <button onClick={() => scrollToSection("about")} className="w-full text-white bebas-neue text-2xl sm:text-lg cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">{t("layout:nav.about")}</button>
                             <button onClick={() => scrollToSection("contact")} className="w-full text-white bebas-neue text-2xl sm:text-lg cursor-pointer hover:text-gray-300 hover:translate-y-1 transition duration-300">{t("layout:nav.contact")}</button>
+                            <LanguageSwitcher />
                             {isAuthenticated ? (
                                 <div className="w-full flex flex-col sm:flex-row gap-4 justify-center pt-2 items-center">
                                     <div className="rounded-full bg-white/10 border border-white/20 text-white h-10 w-10 flex items-center justify-center font-semibold uppercase overflow-hidden">
@@ -159,7 +160,6 @@ const Navbar = () => {
                                     >
                                         {isBusy ? t("layout:nav.loggingOut") : t("layout:nav.logout")}
                                     </button>
-                                    <LanguageSwitcher />
                                 </div>
                             ) : (
                                 <div className="w-full flex gap-4 justify-center pt-2 montserrat">

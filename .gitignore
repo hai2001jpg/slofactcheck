@@ -1,6 +1,5 @@
 # Ignore Firebase credentials
 server/slofactcheck-firebase-adminsdk.json
-client/src/lib/firebase.js
 
 **/.env
 

@@ -1,6 +1,8 @@
 {
   "languageSwitcher": {
-    "label": "Switch language"
+    "label": "Switch language",
+    "modalTitle": "Choose language",
+    "modalDescription": "Select the language for the interface."
   },
   "nav": {
     "home": "Home",
@@ -18,7 +20,7 @@
     "homeAria": "Home"
   },
   "sidebar": {
-    "avatarAlt": "{{name}}'s avatar"
+    "avatarAlt": "User {{name}}"
   },
   "footer": {
     "inCollaborationWith": "In collaboration with",

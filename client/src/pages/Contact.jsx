@@ -5,10 +5,11 @@ import { useTranslation } from "react-i18next";
 const Contact = () => {
     const { t } = useTranslation("home");
     useFadeIn(0.1);
+    const mapQuery = encodeURIComponent("Němcovej 32, Košice, Slovenská republika");
 
     return (
         <div id="contact" className="w-full flex flex-col items-center mt-8 mb-4 bg-[linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.95)_10%,rgba(0,0,0,0.95)_90%,transparent_100%)]">
-            <div className="w-full max-w-7xl px-4 sm:px-8 md:px-16 lg:px-32 flex flex-col md:flex-row justify-evenly gap-8 md:gap-0">
+            <div className="w-full max-w-7xl px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 flex flex-col md:flex-row justify-between gap-8 lg:gap-12">
                 <div className="flex flex-col gap-4 md:max-w-[50%] w-full">
                     <h5 className="montserrat text-xl text-blue-500 font-bold fade-in-hidden">{t("contact.sectionLabel")}</h5>
                     <h1 className="montserrat text-5xl text-white font-bold fade-in-hidden">{t("contact.title")}</h1>
@@ -41,41 +42,20 @@ const Contact = () => {
                         <span className="inter-font">{t("contact.address")}</span>
                     </div>
                 </div>
-                <form className="flex flex-col w-full md:w-[50%] py-4 mt-5 gap-4 items-center">
-                    <div className="w-full sm:w-96 flex flex-col gap-1 fade-in-hidden">
-                        <label htmlFor="email" className="text-gray-400 text-sm montserrat">
-                            {t("contact.fields.email")}
-                        </label>
-                        <input id="email" type="email" className="text-white p-3 rounded-lg border border-gray-300 
-                        bg-transparent w-full focus:outline-none focus:border-blue-500 transition"/>
+                <div className="w-full md:w-[48%] fade-in-hidden">
+                    <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+                        <div className="relative aspect-[4/3] w-full sm:aspect-[16/10] lg:aspect-[4/3]">
+                            <iframe
+                                title="Google maps - Němcovej 32, Košice"
+                                src={`https://www.google.com/maps?q=${mapQuery}&z=17&output=embed`}
+                                className="absolute inset-0 h-full w-full border-0"
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                allowFullScreen
+                            />
+                        </div>
                     </div>
-                    <div className="w-full sm:w-96 flex flex-col gap-1 fade-in-hidden">
-                        <label htmlFor="subject" className="text-gray-400 text-sm montserrat">
-                            {t("contact.fields.subject")}
-                        </label>
-                        <input id="subject" type="text" className="text-white p-3 rounded-lg border border-gray-300 
-                        bg-transparent w-full focus:outline-none focus:border-blue-500 transition"/>
-                    </div>
-                    <div className="w-full sm:w-96 flex flex-col gap-1 fade-in-hidden">
-                        <label htmlFor="message" className="text-gray-400 text-sm montserrat">
-                            {t("contact.fields.message")}
-                        </label>
-                        <textarea id="message" rows="4" className="text-white p-3 rounded-lg border border-gray-300 
-                        bg-transparent w-full focus:outline-none focus:border-blue-500 transition"></textarea>
-                    </div>
-                    <button
-                        type="submit"
-                        className="text-white bg-blue-600 w-full sm:w-96 py-3 px-6 mt-2 rounded-full 
-                        flex justify-center items-center gap-2 transition duration-300 hover:bg-blue-700 
-                        fade-in-hidden cursor-pointer">
-                        <span className="inter-font">{t("contact.submit")}</span>
-                        <LazySvg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1vw" height="1vw" fill="white" className="bi bi-send" viewBox="0 0 16 16">
-                            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
-                        </svg>
-                        </LazySvg>
-                    </button>
-                </form>
+                </div>
             </div>
         </div>
     )

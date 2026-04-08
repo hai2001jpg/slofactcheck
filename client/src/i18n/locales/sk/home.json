@@ -39,10 +39,10 @@
   "contact": {
     "sectionLabel": "Kontakt",
     "title": "Máte otázky? Kontaktujte nás!",
-    "description": "Radi ti pomôžeme a odpovieme na tvoje otázky. Tešíme sa na tvoju správu! Vyplň formulár alebo použi kontaktné údaje nižšie.",
+    "description": "Rádi Vám pomôžeme odpovedať na vaše otázky. Pre kontakt použijte kontaktné údaje nižšie.",
     "address": "Němcovej 32, Košice, Slovenská republika",
     "fields": {
-      "email": "Tvoj e-mail",
+      "email": "Váš e-mail",
       "subject": "Predmet",
       "message": "Správa"
     },
