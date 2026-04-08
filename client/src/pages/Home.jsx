@@ -9,7 +9,7 @@ const Home = () => {
   const { t } = useTranslation("home");
   useFadeIn(0.1);
     return (
-    <div id="home" className="bg max-w-full flex flex-col overflow-hidden mt-8">
+    <div id="home" className="bg max-w-full flex flex-col overflow-hidden mt-24 sm:mt-32">
       <div className='max-w-full text-white px-4 sm:px-6 md:px-10 lg:px-40'>
         <div className="flex flex-col items-center gap-4">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl montserrat font-bold tracking-tight max-w-4xl text-center fade-in-hidden">

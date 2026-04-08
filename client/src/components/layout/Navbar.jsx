@@ -51,7 +51,9 @@ const Navbar = () => {
 
     return (
         <nav className="fixed navbar top-0 z-50 w-full py-4 shadow-md border-b border-gray-600">
-            <div className="max-w-screen-xl mx-auto px-4 lg:px-40 flex items-center justify-between">
+            <div aria-hidden="true" className="navbar__backdrop" />
+
+            <div className="relative z-10 max-w-screen-xl mx-auto px-4 lg:px-40 flex items-center justify-between">
                 <div className="min-w-[200px]">
                     <Link to="/" aria-label={t("layout:nav.homeAria")}>
                         <TypingAnimation text={t("common:app.name")} className="text-3xl font-bold text-white space-grotesk" />
@@ -123,7 +125,7 @@ const Navbar = () => {
             </div>
 
             {/* Mobile menu overlay */}
-                <div className="lg:hidden">
+                <div className="relative z-10 lg:hidden">
                     <div
                         className="overflow-hidden transition-all duration-300 ease-out"
                         style={{ maxHeight: open ? '420px' : '0px', opacity: open ? 1 : 0 }}
