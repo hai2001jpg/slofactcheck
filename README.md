@@ -1,6 +1,6 @@
 # SloFactCheck
 
-SloFactCheck is a web application for multilingual detection using deep learning models.
+SloFactCheck is a web application for multilingual detection using deep learning NLP models.
 
 ![SloFactCheck preview](client/src/assets/img/up_demo.png)
 
@@ -29,8 +29,7 @@ This project is intended as an educational and research-oriented tool. Outputs s
 - Services: Firebase Authentication, Firestore, Gradio, Google Fact Check Tools API
 
 ## Project Structure
-
-```text
+```
 ├── README.md
 ├── client
 │   ├── components.json
@@ -77,35 +76,37 @@ This project is intended as an educational and research-oriented tool. Outputs s
 
 ### Backend Setup
 
-`cd server`
-
-`python -m venv .venv`
-
-`source .venv/bin/activate`
-
-`pip install -r requirements.txt`
+```
+cd server
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
 #### Create server/.env:
 
-```text
+```
 GRADIO_API_URL=hai2001jpg/slofactcheck
 FACTCHECK_API_KEY=...
 OPENAI_API_KEY=...
 ```
 #### Start the backend:
 
-`python server.py` (for test environment)
-
+Test Environment
+```
+python server.py
+```
 or
 
-`gunicorn server:app` (for production)
-
+Production
+```
+gunicorn server:app
+```
 ### Frontend setup
-
-`cd client`
-
-`npm install`
-
+```
+cd client
+npm install
+```
 #### Create client/.env:
 
 ```text
@@ -114,14 +115,17 @@ VITE_BASE_URL=http://localhost:8000
 
 #### Start the frontend:
 
-`npm run dev` (for test environment)
-
+Test Environment
+```
+npm run dev
+``` 
 or
 
-`npm run build`
-
-`npm run preview` (for production)
-
+Production
+```
+npm run build
+npm run preview
+```
 ## API Overview
 
 - POST /analysis: analyze text, classify topic and store result
