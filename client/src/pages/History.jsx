@@ -31,7 +31,7 @@ const History = () => {
     return (
         <div className="flex flex-row min-h-screen bg-[#1B1B1B] overflow-x-hidden">
             <Sidebar />
-            <div className="flex flex-col items-center min-h-full w-full lg:w-7/8 py-4 lg:py-8 gap-4 lg:gap-8">
+            <div className="flex flex-col items-center min-h-full w-full lg:w-7/8 pt-20 pb-4 lg:py-8 gap-4 lg:gap-8">
                 <div className="self-start w-full max-w-6xl ml-2 sm:ml-4 lg:ml-16 gap-2 lg:gap-4 flex flex-col">
                     <h1 className="text-3xl lg:text-5xl text-white montserrat font-bold">
                         {t("history:title")}

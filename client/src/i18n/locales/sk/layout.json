@@ -20,7 +20,9 @@
     "homeAria": "Domov"
   },
   "sidebar": {
-    "avatarAlt": "Používateľ {{name}}"
+    "avatarAlt": "Používateľ {{name}}",
+    "expand": "Rozbaliť bočný panel",
+    "collapse": "Zbaliť bočný panel"
   },
   "footer": {
     "inCollaborationWith": "V spolupráci s",

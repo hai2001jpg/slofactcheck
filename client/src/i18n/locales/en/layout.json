@@ -20,7 +20,9 @@
     "homeAria": "Home"
   },
   "sidebar": {
-    "avatarAlt": "User {{name}}"
+    "avatarAlt": "User {{name}}",
+    "expand": "Expand sidebar",
+    "collapse": "Collapse sidebar"
   },
   "footer": {
     "inCollaborationWith": "In collaboration with",

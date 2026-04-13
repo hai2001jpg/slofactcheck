@@ -34,7 +34,7 @@ const Statistics = () => {
     return (
         <div className="flex flex-row justify-center min-h-screen overflow-hidden">
             <Sidebar />
-            <div className="bg-2 flex flex-col items-center min-h-full w-full lg:w-7/8 bg-[#1B1B1B] py-4 lg:py-8 gap-4 lg:gap-8">
+            <div className="bg-2 flex flex-col items-center min-h-full w-full lg:w-7/8 bg-[#1B1B1B] pt-20 pb-4 lg:py-8 gap-4 lg:gap-8">
                 <div className="self-start ml-4 lg:ml-16 gap-2 lg:gap-4 flex flex-col w-full">
                     <h1 className="text-3xl lg:text-5xl text-white montserrat font-bold">
                         {t("statistics:title")}

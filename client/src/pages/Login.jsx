@@ -53,7 +53,7 @@ const Login = () => {
             onClick={handleGoogleAuth}
             disabled={loading}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 48 48">   
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 shrink-0" viewBox="0 0 48 48">   
               <path
                 fill="#FFC107"
                 d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8
@@ -91,7 +91,7 @@ const Login = () => {
             onClick={handleGoogleAuth}
             disabled={loading}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 48 48">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 shrink-0" viewBox="0 0 48 48">
               <path
                 fill="#FFC107"
                 d="M43.611,20.083H42V20H24v8h11.303

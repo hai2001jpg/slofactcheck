@@ -19,6 +19,11 @@ const Navbar = () => {
     const location = useLocation();
     const isHome = location.pathname === "/";
     const isBusy = loading || isLoggingOut;
+    const navbarBackdropStyle = {
+        background: "rgba(10, 10, 10, 0.45)",
+        backdropFilter: "blur(18px) saturate(160%)",
+        WebkitBackdropFilter: "blur(18px) saturate(160%)",
+    };
 
     const scrollToSection = (id) => {
         const section = document.getElementById(id);
@@ -51,7 +56,7 @@ const Navbar = () => {
 
     return (
         <nav className="fixed navbar top-0 z-50 w-full py-4 shadow-md border-b border-gray-600">
-            <div aria-hidden="true" className="navbar__backdrop" />
+            <div aria-hidden="true" className="navbar__backdrop" style={navbarBackdropStyle} />
 
             <div className="relative z-10 max-w-screen-xl mx-auto px-4 lg:px-40 flex items-center justify-between">
                 <div className="min-w-[200px]">

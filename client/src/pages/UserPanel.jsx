@@ -71,7 +71,7 @@ const UserPanel = () => {
     return(
         <div className="flex flex-row justify-center min-h-screen overflow-hidden">
             <Sidebar />
-            <div className="flex flex-col items-center min-h-full w-full lg:w-7/8 bg-2 py-4 lg:py-8 gap-4 lg:gap-8">
+            <div className="flex flex-col items-center min-h-full w-full lg:w-7/8 bg-2 pt-20 pb-4 lg:py-8 gap-4 lg:gap-8">
                 <div className="px-4 lg:px-16 gap-2 lg:gap-4 flex flex-col w-full">
                     <h1 className="text-3xl lg:text-5xl text-white montserrat font-bold">
                         {t("title")}
