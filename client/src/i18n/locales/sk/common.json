@@ -20,5 +20,11 @@
     "server": "Chyba servera",
     "factCheckSearch": "Nepodarilo sa vyhľadať fact-check zdroje",
     "analyzeFailed": "Analýza zlyhala: {{message}}"
+  },
+  "notFound": {
+    "title": "Stránka neexistuje",
+    "description": "Podstránka, ktorú hľadáte, nebola nájdená alebo už nie je dostupná.",
+    "redirect": "Presmerovanie na domovskú stránku o {{count}} s.",
+    "backHome": "Vrátiť sa na domovskú stránku"
   }
 }

@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import UserPanel from "./pages/UserPanel";
 import History from "./pages/History";
 import Statistics from "./pages/Statistics";
+import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/routing/ProtectedRoute";
 
 function App() {
@@ -61,6 +62,14 @@ function App() {
                 <ProtectedRoute>
                     <Statistics />
                 </ProtectedRoute>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <PageWrapper routeKey="not-found">
+                  <NotFound />
+                </PageWrapper>
               }
             />
           </Routes>

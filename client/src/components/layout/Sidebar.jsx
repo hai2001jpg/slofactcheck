@@ -179,6 +179,7 @@ const Sidebar = () => {
 
     return (
         <>
+            {/* mobile mode */}
             <div className="lg:hidden">
                 {!isSidebarMounted && (
                     <button
@@ -194,7 +195,7 @@ const Sidebar = () => {
                 )}
 
                 {isSidebarMounted && (
-                    <div className="fixed inset-0 z-50">
+                    <div className="fixed inset-0 z-50 h-[100dvh] w-[100vw] overflow-hidden">
                         <button
                             type="button"
                             className={`absolute inset-0 bg-black/45 transition-opacity duration-300 ease-in-out ${
@@ -216,12 +217,12 @@ const Sidebar = () => {
                         </button>
 
                         <div
-                            className={`flex min-h-screen w-screen flex-col bg-[#111111] px-4 pb-6 pt-20 shadow-2xl transition-transform duration-300 ease-in-out ${
+                            className={`flex h-full w-full flex-col overflow-y-auto bg-[#111111] px-4 pb-6 pt-20 shadow-2xl transition-transform duration-300 ease-in-out ${
                                 isSidebarOpen ? "translate-x-0" : "-translate-x-full"
                             }`}
                         >
                             <div className="flex flex-col items-center gap-3">
-                                <h1 className="text-6xl font-bold text-white space-grotesk text-center">
+                                <h1 className="text-4xl font-bold text-white space-grotesk text-center">
                                     {t("common:app.name")}
                                 </h1>
                                 <div className="flex flex-col items-center gap-3">
@@ -245,9 +246,9 @@ const Sidebar = () => {
                                 </div>
                             </div>
 
-                            <div className="mt-10 flex flex-1 flex-col justify-between gap-8">
+                            <div className="mt-10 flex min-h-0 flex-1 flex-col justify-between gap-8">
                                 {renderNavigation({
-                                    labelVisibilityClass: "inline text-xl",
+                                    labelVisibilityClass: "inline text-lg",
                                     linkClassName: "w-full",
                                     contentClassName: "justify-start",
                                 })}
@@ -269,7 +270,8 @@ const Sidebar = () => {
                     </div>
                 )}
             </div>
-
+            
+            {/* desktop mode */}
             <div className="hidden bg-[#111111] lg:flex flex-col items-center min-h-full w-1/8 py-8 gap-4 shadow-lg">
                 <span className="block xl:hidden">
                     <h1 className="text-2xl font-bold text-white space-grotesk">{t("common:app.shortName")}</h1>
