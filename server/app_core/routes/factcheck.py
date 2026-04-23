@@ -3,7 +3,7 @@ from time import perf_counter
 from flask import Blueprint, current_app, jsonify, request
 
 from app_core.observability import elapsed_ms
-from app_core.services.factcheck_service import google_claim_search, openai_claim_search
+from app_core.services.factcheck_service import find_fact_checks
 
 
 factcheck_bp = Blueprint("factcheck", __name__)
@@ -20,34 +20,21 @@ def factcheck():
         return jsonify({"error": "Missing query"}), 400
 
     try:
-        google_started = perf_counter()
-        google_results = google_claim_search(query, settings)
+        lookup_started = perf_counter()
+        factcheck_data = find_fact_checks(query, openai_client, settings)
         current_app.logger.info(
-            "factcheck google_lookup results=%d query_chars=%d duration_ms=%.1f",
-            len(google_results),
+            "factcheck lookup results=%d source=%s query_chars=%d duration_ms=%.1f",
+            len(factcheck_data["results"]),
+            factcheck_data["source"],
             len(query),
-            elapsed_ms(google_started),
-        )
-        if google_results:
-            current_app.logger.info(
-                "factcheck completed source=google duration_ms=%.1f",
-                elapsed_ms(route_started),
-            )
-            return jsonify({"results": google_results, "source": "google_fact_check_tools"})
-
-        openai_started = perf_counter()
-        openai_results = openai_claim_search(query, openai_client, settings)
-        current_app.logger.info(
-            "factcheck openai_lookup results=%d query_chars=%d duration_ms=%.1f",
-            len(openai_results),
-            len(query),
-            elapsed_ms(openai_started),
+            elapsed_ms(lookup_started),
         )
         current_app.logger.info(
-            "factcheck completed source=openai duration_ms=%.1f",
+            "factcheck completed source=%s duration_ms=%.1f",
+            factcheck_data["source"],
             elapsed_ms(route_started),
         )
-        return jsonify({"results": openai_results, "source": "openai_web_search"})
+        return jsonify(factcheck_data)
     except Exception as exc:
         current_app.logger.exception("Factcheck endpoint failed")
         return jsonify({

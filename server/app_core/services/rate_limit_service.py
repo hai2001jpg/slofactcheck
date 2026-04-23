@@ -69,6 +69,38 @@ def reserve_daily_analysis_slot(db, *, user_id, daily_limit, timezone_name, coll
     return _reserve_slot(transaction)
 
 
+def release_daily_analysis_slot(db, *, user_id, daily_limit, timezone_name, collection_name):
+    day_key = get_day_key(timezone_name)
+    doc_ref = db.collection(collection_name).document(get_usage_document_id(user_id, day_key))
+    transaction = db.transaction()
+
+    @firestore.transactional
+    def _release_slot(transaction):
+        snapshot = doc_ref.get(transaction=transaction)
+        current_count = snapshot.get("count") if snapshot.exists else 0
+        next_count = max(current_count - 1, 0)
+
+        transaction.set(
+            doc_ref,
+            {
+                "userId": user_id,
+                "dayKey": day_key,
+                "count": next_count,
+                "limit": daily_limit,
+                "updatedAt": firestore.SERVER_TIMESTAMP,
+            },
+            merge=True,
+        )
+        return DailyUsageStatus(
+            day_key=day_key,
+            count=next_count,
+            remaining=max(daily_limit - next_count, 0),
+            limit=daily_limit,
+        )
+
+    return _release_slot(transaction)
+
+
 def get_daily_usage_status(db, *, user_id, daily_limit, timezone_name, collection_name):
     day_key = get_day_key(timezone_name)
     doc_ref = db.collection(collection_name).document(get_usage_document_id(user_id, day_key))

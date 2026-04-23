@@ -36,6 +36,12 @@ function App() {
                 </PageWrapper>
               }
             />
+            {/* <Route path="/disinformation" element={
+                <PageWrapper routeKey="/disinformation">
+                  <Disinformation />
+                </PageWrapper>
+              }
+            /> */}
 
             {/* Protected routes */ }
             <Route

@@ -1,5 +1,4 @@
 from time import perf_counter
-
 from flask import Blueprint, current_app, jsonify, request
 
 from app_core.clients import get_gradio_client
@@ -10,16 +9,16 @@ from app_core.services.analysis_service import (
     predict_analysis,
     save_analysis,
 )
+from app_core.services.factcheck_service import find_fact_checks
 from app_core.services.rate_limit_service import (
     DailyLimitExceeded,
     get_daily_usage_status,
+    release_daily_analysis_slot,
     reserve_daily_analysis_slot,
 )
 from app_core.services.topic_service import classify_topic
 
-
 analysis_bp = Blueprint("analysis", __name__)
-
 
 @analysis_bp.route("/analysis", methods=["POST"])
 def analysis_route():
@@ -50,6 +49,7 @@ def analysis_route():
         return jsonify({"success": False, "error": "Firebase not initialized"}), 500
 
     rate_limit_started = perf_counter()
+    usage_status = None
     try:
         usage_status = reserve_daily_analysis_slot(
             db,
@@ -75,7 +75,7 @@ def analysis_route():
             }
         ), 429
     except Exception as exc:
-        current_app.logger.exception("Failed to reserve daily analysis slot for user '%s'", user_id)
+        current_app.logger.exception("Failed to reserve daily analysis slot")
         return jsonify({"success": False, "error": f"Firebase error: {exc}"}), 500
     current_app.logger.info(
         "analysis rate_limit duration_ms=%.1f user_id=%s count=%d remaining=%d day=%s",
@@ -104,6 +104,18 @@ def analysis_route():
         result, confidence = predict_analysis(gradio_client, model_name, input_text)
     except Exception as exc:
         current_app.logger.exception("Prediction failed for model '%s'", model_name)
+        if usage_status is not None:
+            try:
+                release_daily_analysis_slot(
+                    db,
+                    user_id=str(user_id),
+                    daily_limit=settings.daily_analysis_limit,
+                    timezone_name=settings.app_timezone,
+                    collection_name=settings.analysis_rate_limit_collection,
+                )
+            except Exception:
+                current_app.logger.exception(
+                    "Failed to release daily analysis slot after prediction error.")
         return jsonify({"success": False, "error": f"Gradio API error: {exc}"}), 500
     current_app.logger.info(
         "analysis prediction duration_ms=%.1f model=%s result=%s confidence=%s",
@@ -113,12 +125,49 @@ def analysis_route():
         confidence,
     )
 
+    fact_check_results = []
+    fact_check_error = ""
+    fact_check_started = perf_counter()
+    try:
+        factcheck_data = find_fact_checks(str(input_text), openai_client, settings)
+        fact_check_results = factcheck_data["results"]
+        current_app.logger.info(
+            "analysis factcheck_lookup duration_ms=%.1f results=%d source=%s",
+            elapsed_ms(fact_check_started),
+            len(fact_check_results),
+            factcheck_data["source"],
+        )
+    except Exception as exc:
+        fact_check_error = str(exc)
+        current_app.logger.exception("Fact-check lookup failed during analysis save")
+
     firestore_started = perf_counter()
     try:
-        document = build_analysis_document(user_id, input_text, model_name, result, confidence, topic)
+        document = build_analysis_document(
+            user_id,
+            input_text,
+            model_name,
+            result,
+            confidence,
+            topic,
+            fact_check_results=fact_check_results,
+            fact_check_error=fact_check_error,
+        )
         save_analysis(db, document)
     except Exception as exc:
         current_app.logger.exception("Firebase save failed for model '%s'", model_name)
+        if usage_status is not None:
+            try:
+                release_daily_analysis_slot(
+                    db,
+                    user_id=str(user_id),
+                    daily_limit=settings.daily_analysis_limit,
+                    timezone_name=settings.app_timezone,
+                    collection_name=settings.analysis_rate_limit_collection,
+                )
+            except Exception:
+                current_app.logger.exception(
+                    "Failed to release daily analysis slot after save error")
         return jsonify({"success": False, "error": f"Firebase error: {exc}"}), 500
     current_app.logger.info(
         "analysis firestore_save duration_ms=%.1f",
@@ -132,12 +181,13 @@ def analysis_route():
             "result": result,
             "confidence": confidence,
             "topic": topic,
+            "factCheckResults": fact_check_results,
+            "factCheckError": fact_check_error,
             "remainingAnalysesToday": usage_status.remaining,
             "dailyLimit": usage_status.limit,
             "dayKey": usage_status.day_key,
         }
     )
-
 
 @analysis_bp.route("/analysis", methods=["GET"])
 def get_user_analysis():

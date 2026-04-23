@@ -144,3 +144,18 @@ Return JSON with this exact structure:
             }
         )
     return results
+
+
+def find_fact_checks(query, openai_client, settings):
+    google_results = google_claim_search(query, settings)
+    if google_results:
+        return {
+            "results": google_results,
+            "source": "google_fact_check_tools",
+        }
+
+    openai_results = openai_claim_search(query, openai_client, settings)
+    return {
+        "results": openai_results,
+        "source": "openai_web_search",
+    }

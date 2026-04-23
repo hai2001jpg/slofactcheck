@@ -19,7 +19,7 @@ const AnalysisResult = ({ input, result, confidence, topic }) => {
           <div className="flex flex-col">
             <span className="text-sm text-gray-400">{t("analysis:labels.result")}</span>
             <b className={String(result) === "false" ? "text-red-500" : "text-blue-500"}>
-              <span className="text-2xl">{resultLabel}</span>
+              <span className="text-2xl" data-testid="analysis-result-value">{resultLabel}</span>
             </b>
           </div>
           <div className="flex flex-col">
@@ -28,7 +28,7 @@ const AnalysisResult = ({ input, result, confidence, topic }) => {
           </div>
           <div className="flex flex-col">
             <p className="montserrat text-sm text-gray-400">{t("analysis:labels.category")}:</p>
-            <p className="montserrat text-md font-normal text-white">{topicLabel}</p>
+            <p className="montserrat text-md font-normal text-white" data-testid="analysis-topic-value">{topicLabel}</p>
           </div>
         </div>
       </div>

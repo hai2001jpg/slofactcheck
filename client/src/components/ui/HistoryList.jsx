@@ -3,12 +3,12 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import AnalysisModal from "@/components/ui/AnalysisModal";
 import { getResultLabel, getTopicLabel } from "@/lib/analysisLabels";
+import { getModelDisplayName } from "@/lib/modelLabels";
 import { analysisShape } from "@/lib/propTypes";
 
 const HistoryList = ({
         analyses,
         paginatedAnalyses,
-        modelDisplayMap,
         totalPages,
         currentPage,
         setCurrentPage
@@ -49,7 +49,7 @@ const HistoryList = ({
                             </div>
                             <div className={`text-center font-bold ${String(a.result) === "false" ? "text-red-500" : "text-blue-500"}`}>{getResultLabel(a.result, t)}</div>
                             <div className="hidden sm:block text-center font-bold">{(Math.round(Number(a.confidence) * 10000) / 100).toFixed(2)}%</div>
-                            <div className="hidden sm:block text-center font-bold text-nowrap">{modelDisplayMap[a.model] || a.model}</div>
+                            <div className="hidden sm:block text-center font-bold text-nowrap">{getModelDisplayName(a.model)}</div>
                         </div>
                     ))}
                 </div>
@@ -80,7 +80,6 @@ const HistoryList = ({
 HistoryList.propTypes = {
     analyses: PropTypes.arrayOf(analysisShape).isRequired,
     paginatedAnalyses: PropTypes.arrayOf(analysisShape).isRequired,
-    modelDisplayMap: PropTypes.objectOf(PropTypes.string).isRequired,
     totalPages: PropTypes.number.isRequired,
     currentPage: PropTypes.number.isRequired,
     setCurrentPage: PropTypes.func.isRequired,

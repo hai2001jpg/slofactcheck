@@ -10,7 +10,16 @@ def predict_analysis(gradio_client, model_name, input_text):
     )
 
 
-def build_analysis_document(user_id, input_text, model_name, result, confidence, topic):
+def build_analysis_document(
+    user_id,
+    input_text,
+    model_name,
+    result,
+    confidence,
+    topic,
+    fact_check_results=None,
+    fact_check_error="",
+):
     return {
         "userId": user_id,
         "input": input_text,
@@ -18,6 +27,8 @@ def build_analysis_document(user_id, input_text, model_name, result, confidence,
         "result": result,
         "confidence": confidence,
         "topic": topic,
+        "factCheckResults": fact_check_results or [],
+        "factCheckError": fact_check_error,
         "createdAt": firestore.SERVER_TIMESTAMP,
     }
 

@@ -10,13 +10,6 @@ const History = () => {
     const { t } = useTranslation(["history", "common"]);
     const navigate = useNavigate();
     const { user } = useAuth();
-    // model names mapping
-    const modelDisplayMap = {
-        "mbert": "mBERT",
-        "xlm_roberta": "XLM-RoBERTa",
-        "mt5": "mT-5",
-        "mdeberta_v3": "mDeBERTa-v3",
-    };
     const { analyses, loading, error } = useFetchAnalyses(user);
     // pagination state
     const [currentPage, setCurrentPage] = useState(1);
@@ -60,7 +53,6 @@ const History = () => {
                 <HistoryList
                     analyses={analyses}
                     paginatedAnalyses={paginatedAnalyses}
-                    modelDisplayMap={modelDisplayMap}
                     totalPages={totalPages}
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}

@@ -8,6 +8,15 @@ html {
   scroll-behavior: smooth;
 }
 
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .navbar {
   position: fixed;
   top: 0;

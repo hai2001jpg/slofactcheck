@@ -19,7 +19,7 @@ const firebaseConfig = {
 // Initialize Firebase
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const _analytics = getAnalytics(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
